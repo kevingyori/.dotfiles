@@ -1,0 +1,27 @@
+
+# Utilities
+alias cl='clear'
+alias v='nvim'
+alias vim='nvim'
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -la'
+alias denowatch='deno run --allow-all --watch'
+# alias dev='fd --type d --hidden --exclude .git --max-depth 1 | fzf-tmux -p | xargs nvim'
+alias fdfzfdev='fd . "/Users/kevingyori/dev/" --type d --max-depth 1 | fzf-tmux -p'
+alias cdev='cd "$(fdfzfdev)"'
+alias dev='cdev && nvim .'
+
+# Configs
+# alias config-starship='vim ~/.config/starship.toml'
+alias configala='vim ~/.config/alacritty/alacritty.yml'
+alias configkitty='vim ~/.config/kitty/kitty.conf'
+alias configtmux='vim ~/.config/tmux/tmux.conf'
+alias configyabai='vim ~/.config/yabai/yabairc'
+alias configskhd='vim ~/.config/skhd/skhdrc'
+alias config='vim ~/.zshrc'
+alias reload='source ~/.zshrc'
+alias reloadtmux='tmux source-file ~/.config/tmux/tmux.conf'
+alias bench='~/.zsh-bench/zsh-bench'
+alias configa='vim ~/.zsh_aliases'
+alias configchad='vim ~/.config/nvim/lua/custom/'
