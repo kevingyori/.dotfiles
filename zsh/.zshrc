@@ -23,7 +23,7 @@ function refresh-completions() {
 # History config
 HISTFILE=~/.histfile
 HISTSIZE=10000
-SAVEHIST=10000
+SAVEHIST=100000
 setopt autocd
 
 # Compinstall
