@@ -6,7 +6,7 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family      JetBrains Mono
+font_family      FiraCode Nerd Font
 # bold_font        auto
 # italic_font      auto
 # bold_italic_font auto
@@ -24,7 +24,7 @@ font_family      JetBrains Mono
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_size 15.0
+font_size 16.0
 
 #: Font size (in pts)
 
@@ -240,6 +240,7 @@ font_size 15.0
 #: Scrollback {{{
 
 # scrollback_lines 2000
+scrollback_lines 100000
 
 #: Number of lines of history to keep in memory for scrolling back.
 #: Memory is allocated on demand. Negative numbers are (effectively)
@@ -724,6 +725,7 @@ font_size 15.0
 #: horizontal and bottom. Four values set top, right, bottom and left.
 
 # window_padding_width 0
+window_padding_width 8
 
 #: The window padding (in pts) (blank area between the text and the
 #: window border). A single value sets all four sides. Two values set
@@ -747,7 +749,6 @@ font_size 15.0
 # inactive_border_color #cccccc
 
 #: The color for the border of inactive windows.
-
 # bell_border_color #ff5a00
 
 #: The color for the border of inactive windows in which a bell has
@@ -758,7 +759,7 @@ font_size 15.0
 #: Fade the text in inactive windows by the specified amount (a number
 #: between zero and one, with zero being fully faded).
 
-# hide_window_decorations no
+hide_window_decorations yes
 
 #: Hide the window decorations (title-bar and window borders) with
 #: yes. On macOS, titlebar-only can be used to only hide the titlebar.
@@ -1385,9 +1386,12 @@ font_size 15.0
 #:     KITTY_CLONE_SOURCE_PATH.
 
 #: This option must be a comma separated list of the above values.
-#: This only source the first valid one in the above order.
+#: This only source the first valid one in the above ordr.
 
 # term xterm-kitty
+
+# fix true color tmux
+term xterm-256color
 
 #: The value of the TERM environment variable to set. Changing this
 #: can break many terminal programs, only change it if you know what
@@ -2239,3 +2243,9 @@ font_size 15.0
 #: }}}
 
 #: }}}
+
+
+# BEGIN_KITTY_THEME
+# 1984 Dark
+include current-theme.conf
+# END_KITTY_THEME
