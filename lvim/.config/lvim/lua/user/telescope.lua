@@ -133,14 +133,17 @@ lvim.builtin.telescope.defaults.mappings = {
 }
 
 lvim.builtin.telescope.pickers.live_grep = {
+  hidden = true;
   theme = "dropdown",
 }
 
 lvim.builtin.telescope.pickers.grep_string = {
+  hidden = true;
   theme = "dropdown",
 }
 
 lvim.builtin.telescope.pickers.find_files = {
+  hidden = true,
   theme = "dropdown",
   previewer = false,
 }

@@ -4,7 +4,7 @@ lvim.builtin.which_key.mappings["h"] = { "<cmd>nohlsearch<cr>", "nohl" }
 lvim.builtin.which_key.mappings["q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" }
 lvim.builtin.which_key.mappings["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" }
 -- lvim.builtin.which_key.mappings["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" }
-lvim.builtin.which_key.mappings["gy"] = "Link"
+-- lvim.builtin.which_key.mappings["gy"] = "Link"
 lvim.builtin.which_key.mappings["r"] = {
   name = "Replace",
   r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
@@ -13,10 +13,10 @@ lvim.builtin.which_key.mappings["r"] = {
 }
 lvim.builtin.which_key.mappings["a"] = {
   name = "A.I.",
-  c = { "<cmd>ChatGPT<cr>", "ChatGPT" },
-  a = { "<cmd>ChatGPTActAs<cr>", "Act As GPT" },
-  e = { "<cmd>ChatGPTEditWithInstructions<cr>", "Edit GPT" },
-  r = { "<cmd>ChatRunCustomCodeAction<cr>", "Code Action GPT" },
+  -- c = { "<cmd>ChatGPT<cr>", "ChatGPT" },
+  -- a = { "<cmd>ChatGPTActAs<cr>", "Act As GPT" },
+  -- e = { "<cmd>ChatGPTEditWithInstructions<cr>", "Edit GPT" },
+  -- r = { "<cmd>ChatRunCustomCodeAction<cr>", "Code Action GPT" },
   s = { "<cmd>Copilot suggestion<cr>", "Toggle Copilot Suggestion" },
   p = { "<cmd>Copilot panel<cr>", "Toggle Copilot Panel" },
   t = { "<cmd>Copilot toggle<cr>", "Toggle Copilot" },
@@ -144,16 +144,16 @@ lvim.builtin.which_key.mappings["o"] = {
   -- t = { '<cmd>lua require("user.functions").toggle_tabline()<cr>', "Tabline" },
 }
 
-lvim.builtin.which_key.mappings["n"] = {
-  name = "Notes",
-  c = { "<cmd>Telekasten show_calendar<cr>", "Calendar" },
-  n = { "<cmd>Telekasten new_note<cr>", "Note" },
-  f = { "<cmd>Telekasten find_notes<cr>", "Find" },
-  F = { "<cmd>Telekasten find_daily_notes<cr>", "Find Journal" },
-  j = { "<cmd>Telekasten goto_today<cr>", "Journal" },
-  p = { "<cmd>Telekasten panel<cr>", "Panel" },
-  t = { "<cmd>Telekasten toggle_todo<cr>", "Toggle Todo" },
-}
+-- lvim.builtin.which_key.mappings["n"] = {
+--   name = "Notes",
+--   c = { "<cmd>Telekasten show_calendar<cr>", "Calendar" },
+--   n = { "<cmd>Telekasten new_note<cr>", "Note" },
+--   f = { "<cmd>Telekasten find_notes<cr>", "Find" },
+--   F = { "<cmd>Telekasten find_daily_notes<cr>", "Find Journal" },
+--   j = { "<cmd>Telekasten goto_today<cr>", "Journal" },
+--   p = { "<cmd>Telekasten panel<cr>", "Panel" },
+--   t = { "<cmd>Telekasten toggle_todo<cr>", "Toggle Todo" },
+-- }
 
 lvim.builtin.which_key.mappings[";"] = nil
 -- lvim.builtin.which_key.mappings["c"] = nil
