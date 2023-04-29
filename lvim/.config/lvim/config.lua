@@ -4,7 +4,9 @@ reload "user.options"
 reload "user.keymaps"
 reload "user.autocommands"
 reload "user.lsp"
-reload "user.smoothie"
+reload "user.leap"
+-- reload "user.smoothie"
+reload "user.neoscroll"
 reload "user.harpoon"
 reload "user.cybu"
 reload "user.surround"
@@ -35,6 +37,12 @@ reload "user.whichkey"
  THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
  `lvim` is the global options object
 ]]
+
+-- remove background color
+lvim.transparent_window = true
+
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- vim options
 vim.opt.shiftwidth = 2

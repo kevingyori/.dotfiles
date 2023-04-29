@@ -1,5 +1,4 @@
-M = {}
-lvim.leader = "space"
+M = {} lvim.leader = "space"
 
 local opts = { noremap = true, silent = true }
 -- For the description on keymaps, I have a function getOptions(desc) which returns noremap=true, silent=true and desc=desc. Then call: keymap(mode, keymap, command, getOptions("some randome desc")
@@ -11,17 +10,29 @@ keymap("n", "<C-i>", "<C-i>", opts)
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<m-h>", "<C-w>h", opts)
-keymap("n", "<m-j>", "<C-w>j", opts)
-keymap("n", "<m-k>", "<C-w>k", opts)
-keymap("n", "<m-l>", "<C-w>l", opts)
+-- keymap("n", "<m-h>", "<C-w>h", opts)
+-- keymap("n", "<m-j>", "<C-w>j", opts)
+-- keymap("n", "<m-k>", "<C-w>k", opts)
+-- keymap("n", "<m-l>", "<C-w>l", opts)
+-- keymap("n", "<m-tab>", "<c-6>", opts)
+-- MacOS US layout alt key remaps
+-- e.g. alt-h = ˙ and alt-j = ∆
+keymap("n", "˙", "<C-w>h", opts)
+keymap("n", "∆", "<C-w>j", opts)
+keymap("n", "˚", "<C-w>k", opts)
+keymap("n", "¬", "<C-w>l", opts)
 keymap("n", "<m-tab>", "<c-6>", opts)
 
 function _G.set_terminal_keymaps()
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-h>", [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-j>", [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-k>", [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-l>", [[<C-\><C-n><C-W>l]], opts)
+  -- vim.api.nvim_buf_set_keymap(0, "t", "<m-h>", [[<C-\><C-n><C-W>h]], opts)
+  -- vim.api.nvim_buf_set_keymap(0, "t", "<m-j>", [[<C-\><C-n><C-W>j]], opts)
+  -- vim.api.nvim_buf_set_keymap(0, "t", "<m-k>", [[<C-\><C-n><C-W>k]], opts)
+  -- vim.api.nvim_buf_set_keymap(0, "t", "<m-l>", [[<C-\><C-n><C-W>l]], opts)
+  -- same Macos US layout alt key remaps as above
+  vim.api.nvim.buf_set_keymap(0, "t", "˙", [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim.buf_set_keymap(0, "t", "∆", [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim.buf_set_keymap(0, "t", "˚", [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim.buf_set_keymap(0, "t", "¬", [[<C-\><C-n><C-W>l]], opts)
 end
 
 vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"

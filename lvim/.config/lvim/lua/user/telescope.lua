@@ -145,7 +145,7 @@ lvim.builtin.telescope.pickers.grep_string = {
 lvim.builtin.telescope.pickers.find_files = {
   hidden = true,
   theme = "dropdown",
-  previewer = false,
+  -- previewer = false,
 }
 
 lvim.builtin.telescope.pickers.buffers = {
@@ -160,7 +160,7 @@ lvim.builtin.telescope.pickers.planets = {
 }
 
 lvim.builtin.telescope.pickers.colorscheme = {
-  enable_preview = true,
+  enable_preview = false,
 }
 
 lvim.builtin.telescope.pickers.lsp_references = {

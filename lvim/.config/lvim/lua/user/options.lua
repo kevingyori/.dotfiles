@@ -1,6 +1,7 @@
 -- lvim.colorscheme = "darkplus"
 -- lvim.colorscheme = "gruvbox-material"
-lvim.colorscheme = "catppuccin"
+lvim.colorscheme = "rose-pine"
+-- lvim.colorscheme = "catppuccin"
 lvim.log.level = "warn"
 lvim.builtin.alpha.active = true
 lvim.lsp.diagnostics.float.focusable = true
