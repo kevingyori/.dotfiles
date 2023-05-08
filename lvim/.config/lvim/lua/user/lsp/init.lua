@@ -17,8 +17,8 @@ lvim.lsp.diagnostics.virtual_text = false
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "stylua", filetypes = { "lua" } },
-  { command = "shfmt", filetypes = { "sh", "zsh" } },
+  { command = "stylua",   filetypes = { "lua" } },
+  { command = "shfmt",    filetypes = { "sh", "zsh" } },
   { command = "prettier", filetypes = { "css" } },
 }
 

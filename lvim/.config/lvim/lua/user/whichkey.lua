@@ -2,9 +2,14 @@ lvim.builtin.which_key.mappings["b"] = { "<cmd>Telescope buffers<cr>", "Buffers"
 lvim.builtin.which_key.mappings["v"] = { "<cmd>vsplit<cr>", "vsplit" }
 lvim.builtin.which_key.mappings["h"] = { "<cmd>nohlsearch<cr>", "nohl" }
 lvim.builtin.which_key.mappings["q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" }
-lvim.builtin.which_key.mappings["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" }
+lvim.builtin.which_key.mappings["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<cr>', "Comment" }
 -- lvim.builtin.which_key.mappings["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" }
 -- lvim.builtin.which_key.mappings["gy"] = "Link"
+lvim.builtin.which_key.mappings["u"] = {
+  name = "Undotree",
+  u = { "<cmd>UndotreeToggle<cr>", "Undotree Toggle" },
+  U = { "<cmd>UndotreeFocus<cr>", "Undotree Focus" },
+}
 lvim.builtin.which_key.mappings["r"] = {
   name = "Replace",
   r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
@@ -84,7 +89,7 @@ lvim.builtin.which_key.mappings["g"] = {
     p = { "<cmd>Gist -b -p<cr>", "Create Private" },
   },
 }
-lvim.builtin.which_key.mappings["l"] = {
+lvim.builtin.which_key.mappings["L"] = {
   name = "LSP",
   a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
   c = { "<cmd>lua require('copilot.suggestion').toggle_auto_trigger()<cr>", "Get Capabilities" },
@@ -96,6 +101,7 @@ lvim.builtin.which_key.mappings["l"] = {
   },
   f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
   F = { "<cmd>LspToggleAutoFormat<cr>", "Toggle Autoformat" },
+  -- F = { "<cmd>lua require('user.lsp.handlers').toggle_format_on_save()<cr>", "Toggle Autoformat" },
   i = { "<cmd>LspInfo<cr>", "Info" },
   h = { "<cmd>lua require('lsp-inlayhints').toggle()<cr>", "Toggle Hints" },
   H = { "<cmd>IlluminationToggle<cr>", "Toggle Doc HL" },
@@ -161,13 +167,20 @@ lvim.builtin.which_key.mappings["L"] = nil
 lvim.builtin.which_key.mappings["s"] = nil
 lvim.builtin.which_key.mappings["w"] = nil
 
+-- harpoon
+lvim.builtin.which_key.mappings["j"] = { '<cmd>lua require("harpoon.ui").nav_file(1)<cr>', "Harpoon file 1" }
+lvim.builtin.which_key.mappings["k"] = { '<cmd>lua require("harpoon.ui").nav_file(2)<cr>', "Harpoon file 2" }
+lvim.builtin.which_key.mappings["l"] = { '<cmd>lua require("harpoon.ui").nav_file(3)<cr>', "Harpoon file 3" }
+lvim.builtin.which_key.mappings[";"] = { '<cmd>lua require("harpoon.ui").nav_file(4)<cr>', "Harpoon file 4" }
+
+
 local m_opts = {
-  mode = "n", -- NORMAL mode
+  mode = "n",     -- NORMAL mode
   prefix = "m",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
+  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true,  -- use `silent` when creating keymaps
   noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
+  nowait = true,  -- use `nowait` when creating keymaps
 }
 
 local status_ok, which_key = pcall(require, "which-key")

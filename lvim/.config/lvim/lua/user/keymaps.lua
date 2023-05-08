@@ -1,4 +1,5 @@
-M = {} lvim.leader = "space"
+M = {}
+lvim.leader = "space"
 
 local opts = { noremap = true, silent = true }
 -- For the description on keymaps, I have a function getOptions(desc) which returns noremap=true, silent=true and desc=desc. Then call: keymap(mode, keymap, command, getOptions("some randome desc")
@@ -7,6 +8,11 @@ local keymap = vim.keymap.set
 
 keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
+
+lvim.keys.normal_mode["<C-h>"] = false
+lvim.keys.normal_mode["<C-j>"] = false
+lvim.keys.normal_mode["<C-k>"] = false
+lvim.keys.normal_mode["<C-l>"] = false
 
 -- Normal --
 -- Better window navigation
@@ -29,10 +35,10 @@ function _G.set_terminal_keymaps()
   -- vim.api.nvim_buf_set_keymap(0, "t", "<m-k>", [[<C-\><C-n><C-W>k]], opts)
   -- vim.api.nvim_buf_set_keymap(0, "t", "<m-l>", [[<C-\><C-n><C-W>l]], opts)
   -- same Macos US layout alt key remaps as above
-  vim.api.nvim.buf_set_keymap(0, "t", "˙", [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim.buf_set_keymap(0, "t", "∆", [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim.buf_set_keymap(0, "t", "˚", [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim.buf_set_keymap(0, "t", "¬", [[<C-\><C-n><C-W>l]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "˙", [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "∆", [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "˚", [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "¬", [[<C-\><C-n><C-W>l]], opts)
 end
 
 vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"

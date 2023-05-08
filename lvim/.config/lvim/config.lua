@@ -12,6 +12,7 @@ reload "user.cybu"
 reload "user.surround"
 reload "user.bookmark"
 reload "user.todo-comments"
+reload "user.undotree"
 -- reload "user.jaq"
 reload "user.fidget"
 reload "user.lab"
@@ -33,13 +34,24 @@ reload "user.copilot"
 reload "user.whichkey"
 -- reload "user.neoai"
 
+-- vim.cmd [[ command! LspToggleAutoFormat execute 'lua require("user.lsp.handlers").toggle_format_on_save()' ]]
 --[[
  THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
  `lvim` is the global options object
 ]]
-
 -- remove background color
 lvim.transparent_window = true
+
+-- Example config in lua
+-- vim.g.nord_contrast = true
+-- vim.g.nord_borders = false
+-- vim.g.nord_disable_background = true
+-- vim.g.nord_italic = false
+-- vim.g.nord_uniform_diff_background = true
+-- vim.g.nord_bold = false
+
+-- Load the colorscheme
+-- require('nord').set()
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -53,7 +65,7 @@ vim.opt.relativenumber = true
 lvim.log.level = "info"
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*.lua",
+  -- pattern = "*.lua",
   timeout = 1000,
 }
 -- to disable icons and use a minimalist setup, uncomment the following
@@ -139,10 +151,10 @@ lvim.builtin.treesitter.auto_install = true
 --   {
 --     "github/copilot.vim"
 --   }
-    -- {
-    --   "folke/trouble.nvim",
-    --   cmd = "TroubleToggle",
-    -- },
+-- {
+--   "folke/trouble.nvim",
+--   cmd = "TroubleToggle",
+-- },
 -- }
 
 
