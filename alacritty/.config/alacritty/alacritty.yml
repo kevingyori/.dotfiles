@@ -10,11 +10,11 @@ env:
 window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  decorations: buttonless
+  # decorations: buttonless
   padding:
     x: 2
     y: 2
-  opacity: 0.8
+  # opacity: 0.8
 scrolling:
   # Specifying '0' will disable scrolling.
   history: 100000
@@ -34,90 +34,132 @@ font:
   bold_italic:
     family: FiraCode Nerd Font
     style: Bold Italic
-  size: 15.0
+  size: 18.0
 # If `true`, bold text is drawn using the bright color variants.
 # draw_bold_text_with_bright_colors: true
-
-# Catpuccin - Mocha
+## Rose pines Dawn
 colors:
-  # Default colors
   primary:
-    background: '#1E1E2E' # base
-    foreground: '#CDD6F4' # text
-    # Bright and dim foreground colors
-    dim_foreground: '#CDD6F4' # text
-    bright_foreground: '#CDD6F4' # text
-
-  # Cursor colors
+    background: '#000000' # base
+    foreground: "0xe0def4"
   cursor:
-    text: '#1E1E2E' # base
-    cursor: '#F5E0DC' # rosewater
+    text: "0xe0def4"
+    cursor: "0x524f67"
   vi_mode_cursor:
-    text: '#1E1E2E' # base
-    cursor: '#B4BEFE' # lavender
-
-  # Search colors
-  search:
-    matches:
-      foreground: '#1E1E2E' # base
-      background: '#A6ADC8' # subtext0
-    focused_match:
-      foreground: '#1E1E2E' # base
-      background: '#A6E3A1' # green
-  footer_bar:
-    foreground: '#1E1E2E' # base
-    background: '#A6ADC8' # subtext0
-
-  # Keyboard regex hints
+    text: "0xe0def4"
+    cursor: "0x524f67"
+  line_indicator:
+    foreground: None
+    background: None
+  selection:
+    text: "0xe0def4"
+    background: "0x403d52"
+  normal:
+    black: "0x26233a"
+    red: "0xeb6f92"
+    green: "0x31748f"
+    yellow: "0xf6c177"
+    blue: "0x9ccfd8"
+    magenta: "0xc4a7e7"
+    cyan: "0xebbcba"
+    white: "0xe0def4"
+  bright:
+    black: "0x6e6a86"
+    red: "0xeb6f92"
+    green: "0x31748f"
+    yellow: "0xf6c177"
+    blue: "0x9ccfd8"
+    magenta: "0xc4a7e7"
+    cyan: "0xebbcba"
+    white: "0xe0def4"
   hints:
     start:
-      foreground: '#1E1E2E' # base
-      background: '#F9E2AF' # yellow
+      foreground: "#908caa"
+      background: "#1f1d2e"
     end:
-      foreground: '#1E1E2E' # base
-      background: '#A6ADC8' # subtext0
+      foreground: "#6e6a86"
+      background: "#1f1d2e"
 
-  # Selection colors
-  selection:
-    text: '#1E1E2E' # base
-    background: '#F5E0DC' # rosewater
+# Catpuccin - Mocha
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#000000' # base
+#     foreground: '#CDD6F4' # text
+#     # Bright and dim foreground colors
+#     dim_foreground: '#CDD6F4' # text
+#     bright_foreground: '#CDD6F4' # text
 
-  # Normal colors
-  normal:
-    black:   '#45475A' # surface1
-    red:     '#F38BA8' # red
-    green:   '#A6E3A1' # green
-    yellow:  '#F9E2AF' # yellow
-    blue:    '#89B4FA' # blue
-    magenta: '#F5C2E7' # pink
-    cyan:    '#94E2D5' # teal
-    white:   '#BAC2DE' # subtext1
+#   # Cursor colors
+#   cursor:
+#     text: '#1E1E2E' # base
+#     cursor: '#F5E0DC' # rosewater
+#   vi_mode_cursor:
+#     text: '#1E1E2E' # base
+#     cursor: '#B4BEFE' # lavender
 
-  # Bright colors
-  bright:
-    black:   '#585B70' # surface2
-    red:     '#F38BA8' # red
-    green:   '#A6E3A1' # green
-    yellow:  '#F9E2AF' # yellow
-    blue:    '#89B4FA' # blue
-    magenta: '#F5C2E7' # pink
-    cyan:    '#94E2D5' # teal
-    white:   '#A6ADC8' # subtext0
+#   # Search colors
+#   search:
+#     matches:
+#       foreground: '#1E1E2E' # base
+#       background: '#A6ADC8' # subtext0
+#     focused_match:
+#       foreground: '#1E1E2E' # base
+#       background: '#A6E3A1' # green
+#   footer_bar:
+#     foreground: '#1E1E2E' # base
+#     background: '#A6ADC8' # subtext0
 
-  # Dim colors
-  dim:
-    black:   '#45475A' # surface1
-    red:     '#F38BA8' # red
-    green:   '#A6E3A1' # green
-    yellow:  '#F9E2AF' # yellow
-    blue:    '#89B4FA' # blue
-    magenta: '#F5C2E7' # pink
-    cyan:    '#94E2D5' # teal
-    white:   '#BAC2DE' # subtext1
+#   # Keyboard regex hints
+#   hints:
+#     start:
+#       foreground: '#1E1E2E' # base
+#       background: '#F9E2AF' # yellow
+#     end:
+#       foreground: '#1E1E2E' # base
+#       background: '#A6ADC8' # subtext0
 
-  indexed_colors:
-    - { index: 16, color: '#FAB387' }
-    - { index: 17, color: '#F5E0DC' }
+#   # Selection colors
+#   selection:
+#     text: '#1E1E2E' # base
+#     background: '#F5E0DC' # rosewater
+
+#   # Normal colors
+#   normal:
+#     black:   '#45475A' # surface1
+#     red:     '#F38BA8' # red
+#     green:   '#A6E3A1' # green
+#     yellow:  '#F9E2AF' # yellow
+#     blue:    '#89B4FA' # blue
+#     magenta: '#F5C2E7' # pink
+#     cyan:    '#94E2D5' # teal
+#     white:   '#BAC2DE' # subtext1
+
+#   # Bright colors
+#   bright:
+#     black:   '#585B70' # surface2
+#     red:     '#F38BA8' # red
+#     green:   '#A6E3A1' # green
+#     yellow:  '#F9E2AF' # yellow
+#     blue:    '#89B4FA' # blue
+#     magenta: '#F5C2E7' # pink
+#     cyan:    '#94E2D5' # teal
+#     white:   '#A6ADC8' # subtext0
+
+#   # Dim colors
+#   dim:
+#     black:   '#45475A' # surface1
+#     red:     '#F38BA8' # red
+#     green:   '#A6E3A1' # green
+#     yellow:  '#F9E2AF' # yellow
+#     blue:    '#89B4FA' # blue
+#     magenta: '#F5C2E7' # pink
+#     cyan:    '#94E2D5' # teal
+#     white:   '#BAC2DE' # subtext1
+
+#   indexed_colors:
+#     - { index: 16, color: '#FAB387' }
+#     - { index: 17, color: '#F5E0DC' }
 
 
 # Specifying a `duration` of `0` will disable the visual bell.
@@ -147,14 +189,14 @@ mouse:
 
 
 # tmux shortcuts MacOS
-key_bindings:
-  # new window
-  - { key: T, mods: Command, chars: "\x02\x63" }
-  # close pane
-  - { key: W, mods: Command, chars: "\x02\x78" }
-  # Switch to last tmux session
-  - { key: L, mods: Command, chars: "\x02\x4c" }
-  # Change to the next tmux window
-  - { key: LBracket, mods: Command, chars: "\x02\x5b" }
-  # Change to the previous tmux window
-  - { key: LBracket, mods: Command|Shift, chars: "\x02\x70" }
+# key_bindings:
+#   # new window
+#   - { key: T, mods: Command, chars: "\x02\x63" }
+#   # close pane
+#   - { key: W, mods: Command, chars: "\x02\x78" }
+#   # Switch to last tmux session
+#   - { key: L, mods: Command, chars: "\x02\x4c" }
+#   # Change to the next tmux window
+#   - { key: LBracket, mods: Command, chars: "\x02\x5b" }
+#   # Change to the previous tmux window
+#   - { key: LBracket, mods: Command|Shift, chars: "\x02\x70" }

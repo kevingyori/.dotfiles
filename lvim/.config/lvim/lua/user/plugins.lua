@@ -12,8 +12,8 @@ lvim.plugins = {
       require("rose-pine").setup({
         -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-        disable_background = true,
-        disable_float_background = true,
+        -- disable_background = true,
+        -- disable_float_background = true,
       })
     end,
   },
@@ -24,8 +24,8 @@ lvim.plugins = {
         -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         -- transparent_background = false,
-        nord_disable_background = true,
-        nord_bold = false,
+        -- nord_disable_background = true,
+        -- nord_bold = false,
       })
     end,
   },
@@ -42,6 +42,7 @@ lvim.plugins = {
   -- "savq/melange-nvim",
   -- "catppuccin/nvim",
   -- "AlexvZyl/nordic.nvim",
+  "savq/melange-nvim",
   "shaunsingh/nord.nvim",
   "xiyaowong/transparent.nvim",
   -- {

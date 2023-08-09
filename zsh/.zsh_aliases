@@ -2,14 +2,31 @@
 alias cl='clear'
 alias v='lvim'
 alias nv='nvim'
+alias vv='v .'
 alias ls='ls --color=auto'
-alias ll='ls -l'
+alias ll='lsd -la'
 alias la='ls -la'
+# alias cd='z'
 alias denowatch='deno run --allow-all --watch'
 alias bench='~/.zsh-bench/zsh-bench'
+alias hbench='~/.zsh-bench/human-bench'
+alias pnpx='pnpm dlx'
+alias code='code-insiders'
+# alias dev='find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf'
 # alias dev='fd --type d --hidden --exclude .git --max-depth 1 | fzf-tmux -p | xargs nvim'
-# alias fdfzfdev='fd . "/Users/kevingyori/dev/" --type d --max-depth 1 | fzf-tmux -p'
-# alias cdev='cd "$(fdfzfdev)"'
+alias fdfzfdev="fd . ~/dev/ --type d --max-depth 1 | fzf --multi \
+     --height=50% \
+     --margin=5%,2%,2%,5% \
+     --layout=reverse-list \
+     --border=double \
+     --info=inline \
+     --prompt='>' \
+     --pointer='→' \
+     --marker='♡' \
+     --header='CTRL-c or ESC to quit' \
+     --color='dark,fg:yellow'"
+alias dev='cd "$(fdfzfdev)"'
+alias search="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}' | xargs nvim"
 # alias dev='cdev && nvim .'
 
 # tmux
@@ -34,3 +51,31 @@ alias configlvim='v ~/.config/lvim/config.lua'
 alias reload='source ~/.zshrc'
 alias reloadtmux='tmux source-file ~/.config/tmux/tmux.conf'
 
+gch() {
+  git checkout $(git for-each-ref refs/heads/ --format='%(refname:short)' | fzf --multi \
+    --height=50% \
+    --margin=5%,2%,2%,5% \
+    --layout=reverse-list \
+    --border=double \
+    --info=inline \
+    --prompt='$>' \
+    --pointer='→' \
+    --marker='♡' \
+    --header='CTRL-c or ESC to quit' \
+    --color='dark,fg:magenta')
+}
+
+# dev() {
+#   fd . ~/dev/ --type d --max-depth 1 | fzf --multi \
+#     --height=50% \
+#     --margin=5%,2%,2%,5% \
+#     --layout=reverse-list \
+#     --border=double \
+#     --info=inline \
+#     --prompt='$>' \
+#     --pointer='→' \
+#     --marker='♡' \
+#     --header='CTRL-c or ESC to quit' \
+#     --color='dark,fg:magenta'
+  
+# }
