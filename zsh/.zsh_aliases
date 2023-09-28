@@ -11,7 +11,7 @@ alias denowatch='deno run --allow-all --watch'
 alias bench='~/.zsh-bench/zsh-bench'
 alias hbench='~/.zsh-bench/human-bench'
 alias pnpx='pnpm dlx'
-alias code='code-insiders'
+# alias code='code-insiders'
 # alias dev='find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf'
 # alias dev='fd --type d --hidden --exclude .git --max-depth 1 | fzf-tmux -p | xargs nvim'
 alias fdfzfdev="fd . ~/dev/ --type d --max-depth 1 | fzf --multi \
@@ -28,6 +28,10 @@ alias fdfzfdev="fd . ~/dev/ --type d --max-depth 1 | fzf --multi \
 alias dev='cd "$(fdfzfdev)"'
 alias search="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}' | xargs nvim"
 # alias dev='cdev && nvim .'
+
+# Kitty themes
+alias dark="kitty +kitten themes --reload-in=all GitHub Dark"
+alias light="kitty +kitten themes --reload-in=all GitHub Light"
 
 # tmux
 alias tma='tmux a'
