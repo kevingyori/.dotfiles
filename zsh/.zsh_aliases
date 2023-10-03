@@ -30,8 +30,9 @@ alias search="fzf --preview 'bat --color=always --style=numbers --line-range=:50
 # alias dev='cdev && nvim .'
 
 # Kitty themes
-alias dark="kitty +kitten themes --reload-in=all GitHub Dark"
-alias light="kitty +kitten themes --reload-in=all GitHub Light"
+alias dark="kitty +kitten themes --reload-in=all zenbones_dark"
+alias light="kitty +kitten themes --reload-in=all vimbones"
+alias theme="kitty +kitten themes"
 
 # tmux
 alias tma='tmux a'
