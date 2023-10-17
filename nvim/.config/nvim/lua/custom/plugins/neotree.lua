@@ -10,9 +10,10 @@ return {
 		require("neo-tree").setup(
 			{
 				filesystem = {
-					hide_dotfiles = true,
+					hide_dotfiles = false,
 				},
 				window = {
+					width = 30,
 					mappings = {
 						["l"] = "open",
 					},

@@ -47,6 +47,7 @@ return {
 			})
 		end, { desc = '[/] Fuzzily search in current buffer' })
 
+		-- vim.keymap.set('n', 'f', '', { desc = 'Telescope' })
 		vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files,
 			{ desc = 'Search [G]it [F]iles' })
 		vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
@@ -57,6 +58,7 @@ return {
 		vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics,
 			{ desc = '[F]ind [D]iagnostics' })
 		vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]esume' })
-		vim.keymap.set('n', '<leader>ts', require('telescope.builtin').colorscheme, { desc = '[T]heme [S]earch' })
+		vim.keymap.set('n', '<leader>ft', require('telescope.builtin').colorscheme,
+			{ desc = '[F]ind [T]hemes' })
 	end
 }

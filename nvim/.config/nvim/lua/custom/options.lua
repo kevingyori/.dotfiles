@@ -24,6 +24,20 @@ vim.o.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.o.breakindent = true
 
+-- indentation
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
+
+vim.o.smartindent = true
+
+-- set transparent background
+vim.o.background = 'dark'
+vim.o.termguicolors = true
+
+-- vim.o.cursorlineopt = 'both'
+
 -- Save undo history
 vim.o.undofile = true
 
@@ -35,7 +49,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
@@ -43,3 +57,6 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Highlight cursorlinenr
+-- vim.wo.cursorline = true

@@ -3,6 +3,7 @@ return {
 	'nvim-treesitter/nvim-treesitter',
 	dependencies = {
 		'nvim-treesitter/nvim-treesitter-textobjects',
+		'JoosepAlviste/nvim-ts-context-commentstring',
 	},
 	build = ':TSUpdate',
 	config = function()
@@ -11,10 +12,21 @@ return {
 		require('nvim-treesitter.configs').setup {
 			-- Add languages to be installed here that you want installed for treesitter
 			ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript',
-				'typescript', 'vimdoc', 'vim' },
+				'typescript', 'vimdoc', 'vim', 'bash', 'astro', 'svelte', 'html', 'css', 'json', 'scss', 'yaml', 'toml',
+				'graphql' },
 
 			-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-			auto_install = false,
+			auto_install = true,
+			modules = {
+				-- Enable treesitter for all languages
+				-- ['*'] = true,
+				-- Disable treesitter for some languages
+				-- ['bash'] = false,
+			},
+
+			sync_install = true,
+
+			ignore_install = { 'haskell' },
 
 			highlight = { enable = true },
 			indent = { enable = true },

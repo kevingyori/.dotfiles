@@ -5,6 +5,8 @@ if vim.g.vscode then
   vim.keymap.set("n", "u", "<Cmd>call VSCodeNotify('undo')<CR>")
   vim.keymap.set("n", "<C-r>", "<Cmd>call VSCodeNotify('redo')<CR>")
   vim.keymap.set("n", "<leader>g", "<Cmd>call VSCodeNotify('scm')<CR>")
+  -- Set scrolloff to 8 lines
+  vim.o.scrolloff = 8
 else
   -- ordinary Neovim
   -- Set <space> as the leader key
@@ -25,7 +27,7 @@ else
       'clone',
       '--filter=blob:none',
       'https://github.com/folke/lazy.nvim.git',
-      '--branch=stable', -- latest stable release
+      -- '--branch=stable', -- latest stable release
       lazypath,
     }
   end
@@ -46,6 +48,33 @@ else
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
 
+    {
+      "mcchrish/zenbones.nvim",
+      dependencies = "rktjmp/lush.nvim",
+      config = function()
+        vim.g.rosebones = {
+          transparent_background = true,
+        }
+        vim.g.tokyobones = {
+          transparent_background = true,
+        }
+        vim.g.nordbones = {
+          transparent_background = true,
+        }
+        vim.cmd [[colorscheme nordbones]]
+        -- vim.cmd [[colorscheme rosebones]]
+      end,
+    },
+
+    {
+      "roobert/tailwindcss-colorizer-cmp.nvim",
+      -- optionally, override the default options:
+      config = function()
+        require("tailwindcss-colorizer-cmp").setup({
+          color_square_width = 2,
+        })
+      end
+    },
     -- NOTE: This is where your plugins related to LSP can be installed.
     --  The configuration is done below. Search for lspconfig to find it below.
     {
@@ -53,12 +82,12 @@ else
       'neovim/nvim-lspconfig',
       dependencies = {
         -- Automatically install LSPs to stdpath for neovim
-        { 'williamboman/mason.nvim', config = true },
+        'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
 
         -- Useful status updates for LSP
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+        { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
         -- Additional lua configuration, makes nvim stuff amazing!
         'folke/neodev.nvim',
@@ -82,7 +111,11 @@ else
     },
 
     -- Useful plugin to show you pending keybinds.
-    { 'folke/which-key.nvim',   opts = {} },
+    {
+      'folke/which-key.nvim',
+      opts = {}
+    },
+    'uga-rosa/ccc.nvim',
     {
       -- Adds git related signs to the gutter, as well as utilities for managing changes
       'lewis6991/gitsigns.nvim',
@@ -96,21 +129,29 @@ else
           changedelete = { text = '~' },
         },
         on_attach = function(bufnr)
-          vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
-            { buffer = bufnr, desc = 'Preview git hunk' })
+          -- vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
+          --   { buffer = bufnr, desc = 'Preview git hunk' })
 
           -- don't override the built-in and fugitive keymaps
           local gs = package.loaded.gitsigns
           vim.keymap.set({ 'n', 'v' }, ']c', function()
-            if vim.wo.diff then return ']c' end
-            vim.schedule(function() gs.next_hunk() end)
+            if vim.wo.diff then
+              return ']c'
+            end
+            vim.schedule(function()
+              gs.next_hunk()
+            end)
             return '<Ignore>'
-          end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
+          end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
           vim.keymap.set({ 'n', 'v' }, '[c', function()
-            if vim.wo.diff then return '[c' end
-            vim.schedule(function() gs.prev_hunk() end)
+            if vim.wo.diff then
+              return '[c'
+            end
+            vim.schedule(function()
+              gs.prev_hunk()
+            end)
             return '<Ignore>'
-          end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+          end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
         end,
       },
     },
@@ -122,7 +163,6 @@ else
       opts = {
         options = {
           icons_enabled = false,
-          theme = 'auto',
           component_separators = '|',
           section_separators = '',
         },
@@ -130,25 +170,40 @@ else
     },
 
     {
-      -- Add indentation guides even on blank lines
-      'lukas-reineke/indent-blankline.nvim',
-      -- Enable `lukas-reineke/indent-blankline.nvim`
-      -- See `:help indent-blankline.txt`
-      config = function()
-        require('ibl').setup {
-          indent = { char = "┊" },
-          show_trailing_blankline_indent = false,
-        }
-      end,
+      "folke/zen-mode.nvim",
+      opts = {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
     },
+
+    -- {
+    --   -- Add indentation guides even on blank lines
+    --   'lukas-reineke/indent-blankline.nvim',
+    --   -- Enable `lukas-reineke/indent-blankline.nvim`
+    --   -- See `:help indent-blankline.txt`
+    --   config = function()
+    --     require('ibl').setup {
+    --       indent = { char = "┊" },
+    --       show_trailing_blankline_indent = false,
+    --     }
+    --   end,
+    -- },
 
     -- "gc" to comment visual regions/lines
     {
       'numToStr/Comment.nvim',
-      opts = {}
+      opts = {
+      },
+      config = function()
+        require('Comment').setup {
+          ignore = '^$',
+          pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+        }
+      end,
     },
-
-
+    'windwp/nvim-autopairs',
 
     -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
     --       These are some example plugins that I've included in the kickstart repository.
@@ -157,6 +212,21 @@ else
     -- require 'kickstart.plugins.debug',
 
     ----------- my custom plugins
+
+    {
+      "uga-rosa/ccc.nvim",
+      config = function()
+        require("ccc").setup({
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+          highlighter = {
+            auto_enable = true,
+            lsp = true,
+          },
+        })
+      end
+    },
 
     -- Github theme
     -- {
@@ -192,7 +262,25 @@ else
     { import = 'custom.plugins' },
   }, {})
 
-  ----------------------------------------- [[ Configure nvim-cmp ]] -----------------------------------------
+  ----------------------------------------- [[ Configure lualine ]] -----------------------------------------
+  local theme = require('lualine.themes.rosebones')
+  theme.normal.c.bg = 'none'
+  theme.normal.b.bg = 'none'
+  -- theme.insert.b.bg = 'none'
+  -- theme.visual.b.bg = 'none'
+  -- theme.replace.b.bg = 'none'
+  -- theme.command.b.bg = 'none'
+  -- theme.inactive.b.bg = 'none'
+
+  require('lualine').setup {
+    options = { theme = theme },
+    icons_enabled = false,
+    component_separators = '|',
+    section_separators = '',
+  }
+  -- options = { theme  = custom_gruvbox },
+
+  ----------------------------------------- [[ Basic Options ]] -----------------------------------------
   -- See `:help vim.o`
   -- NOTE: You can change these options as you wish!
   -- import 'custom.options'
@@ -231,7 +319,7 @@ else
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
     -- See `:help K` for why this keymap
-    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('gh', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
@@ -249,6 +337,11 @@ else
     nmap('<leader>fo', vim.lsp.buf.format, '[F][O]rmat file')
   end
 
+  -- mason-lspconfig requires that these setup functions are called in this order
+  -- before setting up the servers.
+  require('mason').setup()
+  require('mason-lspconfig').setup()
+
   -- Enable the following language servers
   --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
   --
@@ -262,6 +355,7 @@ else
     -- gopls = {},
     -- pyright = {},
     -- rust_analyzer = {},
+    astro = {},
     tsserver = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
 
@@ -304,6 +398,11 @@ else
   local luasnip = require 'luasnip'
   require('luasnip.loaders.from_vscode').lazy_load()
   luasnip.config.setup {}
+
+
+  cmp.config.formatting = {
+    format = require("tailwindcss-colorizer-cmp").formatter
+  }
 
   cmp.setup {
     snippet = {
