@@ -61,8 +61,8 @@ else
         vim.g.nordbones = {
           transparent_background = true,
         }
-        vim.cmd [[colorscheme nordbones]]
-        -- vim.cmd [[colorscheme rosebones]]
+        -- vim.cmd [[colorscheme nordbones]]
+        vim.cmd [[colorscheme rosebones]]
       end,
     },
 
@@ -112,51 +112,6 @@ else
 
     -- Useful plugin to show you pending keybinds.
     {
-      'folke/which-key.nvim',
-      opts = {}
-    },
-    'uga-rosa/ccc.nvim',
-    {
-      -- Adds git related signs to the gutter, as well as utilities for managing changes
-      'lewis6991/gitsigns.nvim',
-      opts = {
-        -- See `:help gitsigns.txt`
-        signs = {
-          add = { text = '+' },
-          change = { text = '~' },
-          delete = { text = '_' },
-          topdelete = { text = '‾' },
-          changedelete = { text = '~' },
-        },
-        on_attach = function(bufnr)
-          -- vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
-          --   { buffer = bufnr, desc = 'Preview git hunk' })
-
-          -- don't override the built-in and fugitive keymaps
-          local gs = package.loaded.gitsigns
-          vim.keymap.set({ 'n', 'v' }, ']c', function()
-            if vim.wo.diff then
-              return ']c'
-            end
-            vim.schedule(function()
-              gs.next_hunk()
-            end)
-            return '<Ignore>'
-          end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-          vim.keymap.set({ 'n', 'v' }, '[c', function()
-            if vim.wo.diff then
-              return '[c'
-            end
-            vim.schedule(function()
-              gs.prev_hunk()
-            end)
-            return '<Ignore>'
-          end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
-        end,
-      },
-    },
-
-    {
       -- Set lualine as statusline
       'nvim-lualine/lualine.nvim',
       -- See `:help lualine.txt`
@@ -178,20 +133,15 @@ else
       }
     },
 
-    -- {
-    --   -- Add indentation guides even on blank lines
-    --   'lukas-reineke/indent-blankline.nvim',
-    --   -- Enable `lukas-reineke/indent-blankline.nvim`
-    --   -- See `:help indent-blankline.txt`
-    --   config = function()
-    --     require('ibl').setup {
-    --       indent = { char = "┊" },
-    --       show_trailing_blankline_indent = false,
-    --     }
-    --   end,
-    -- },
+    {
+      -- Add indentation guides even on blank lines
+      'lukas-reineke/indent-blankline.nvim',
+      -- Enable `lukas-reineke/indent-blankline.nvim`
+      -- See `:help ibl`
+      main = 'ibl',
+      opts = {},
+    },
 
-    -- "gc" to comment visual regions/lines
     {
       'numToStr/Comment.nvim',
       opts = {
@@ -203,7 +153,20 @@ else
         }
       end,
     },
-    'windwp/nvim-autopairs',
+    {
+      'windwp/nvim-autopairs',
+      event = "InsertEnter",
+      opts = {
+        check_ts = true,
+        ts_config = {
+          lua = { 'string', 'source' }, -- it will not add pair on that treesitter node
+          javascript = { 'template_string' },
+          -- java = false,-- don't check treesitter on java
+        },
+        disable_filetype = { "TelescopePrompt" },
+        fast_wrap = {},
+      },
+    },
 
     -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
     --       These are some example plugins that I've included in the kickstart repository.
@@ -358,7 +321,7 @@ else
     astro = {},
     tsserver = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
-
+    tailwindcss = {},
     lua_ls = {
       Lua = {
         workspace = { checkThirdParty = false },
@@ -396,13 +359,15 @@ else
   -- See `:help cmp`
   local cmp = require 'cmp'
   local luasnip = require 'luasnip'
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
   require('luasnip.loaders.from_vscode').lazy_load()
   luasnip.config.setup {}
 
-
-  cmp.config.formatting = {
-    format = require("tailwindcss-colorizer-cmp").formatter
-  }
+  cmp.event:on(
+    "confirm_done",
+    cmp_autopairs.on_confirm_done()
+  )
 
   cmp.setup {
     snippet = {
@@ -442,6 +407,9 @@ else
     sources = {
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
+    },
+    formatting = {
+      format = require('tailwindcss-colorizer-cmp').formatter,
     },
   }
 
