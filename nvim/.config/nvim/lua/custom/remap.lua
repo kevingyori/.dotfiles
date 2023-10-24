@@ -4,6 +4,7 @@ vim.keymap.set('n', '<leader>bd', '<cmd>bd<cr>', { desc = 'Close buffer' })
 -- File explorer nvim-tree
 vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<cr>', { desc = 'Exporer' })
 -- nnoremap <leader>s :Neotree float git_status<cr>
+-- vim.keymap.set('n', '<leader>fj', '<cmd>Neotree float git_status<cr>', { desc = 'Exporer' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -44,10 +45,10 @@ vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize +2<cr>', { desc = 'Resize 
 vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize -2<cr>', { desc = 'Resize window right' })
 
 -- Better navigation between windows
-vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Navigate left' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Navigate down' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Navigate up' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Navigate right' })
+-- vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Navigate left' })
+-- vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Navigate down' })
+-- vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Navigate up' })
+-- vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Navigate right' })
 
 -- Better indenting
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent left' })

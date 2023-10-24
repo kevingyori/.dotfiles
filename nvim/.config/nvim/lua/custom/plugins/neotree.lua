@@ -14,6 +14,10 @@ return {
 						visible = true,
 						hide_dotfiles = false,
 					},
+					-- open at the current file
+					follow_current_file = {
+						enabled = true,
+					},
 				},
 				window = {
 					width = 30,

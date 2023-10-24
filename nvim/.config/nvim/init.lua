@@ -61,7 +61,6 @@ else
         vim.g.nordbones = {
           transparent_background = true,
         }
-        -- vim.cmd [[colorscheme nordbones]]
         vim.cmd [[colorscheme rosebones]]
       end,
     },
@@ -190,6 +189,8 @@ else
         })
       end
     },
+    "christoomey/vim-tmux-navigator",
+    "psliwka/vim-smoothie",
 
     -- Github theme
     -- {
@@ -241,7 +242,12 @@ else
     component_separators = '|',
     section_separators = '',
   }
+
   -- options = { theme  = custom_gruvbox },
+  --
+
+
+  -- vim.cmd [[colorscheme rosebones require 'customBones']]
 
   ----------------------------------------- [[ Basic Options ]] -----------------------------------------
   -- See `:help vim.o`
@@ -252,7 +258,6 @@ else
 
   ----------------------------------------- [[ Basic Keymaps ]] -----------------------------------------
   require('custom.remap')
-
 
   ----------------------------------------- [[ Configure LSP ]] -----------------------------------------
   --  This function gets run when an LSP connects to a particular buffer.
@@ -283,7 +288,7 @@ else
 
     -- See `:help K` for why this keymap
     nmap('gh', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
