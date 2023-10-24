@@ -1,3 +1,4 @@
+# https://github.com/alacritty/alacritty/issues/3880#issuecomment-870073303 - if it doesn't open from the cmd
 env:
   TERM: xterm-256color
 # start tmux when launching alacritty
@@ -10,11 +11,13 @@ env:
 window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  # decorations: buttonless
-  padding:
-    x: 2
-    y: 2
+  decorations: buttonless
+  # padding:
+  #   x: 2
+  #   y: 2
   # opacity: 0.8
+  dynamic_paddig: true
+  startup_mode: maximized
 scrolling:
   # Specifying '0' will disable scrolling.
   history: 100000
@@ -42,9 +45,9 @@ colors:
   primary:
     background: '#000000' # base
     foreground: "0xe0def4"
-  cursor:
-    text: "0xe0def4"
-    cursor: "0x524f67"
+  # cursor:
+  #   text: "0xe0def4"
+  #   cursor: "0x524f67"
   vi_mode_cursor:
     text: "0xe0def4"
     cursor: "0x524f67"
@@ -80,88 +83,6 @@ colors:
       foreground: "#6e6a86"
       background: "#1f1d2e"
 
-# Catpuccin - Mocha
-# colors:
-#   # Default colors
-#   primary:
-#     background: '#000000' # base
-#     foreground: '#CDD6F4' # text
-#     # Bright and dim foreground colors
-#     dim_foreground: '#CDD6F4' # text
-#     bright_foreground: '#CDD6F4' # text
-
-#   # Cursor colors
-#   cursor:
-#     text: '#1E1E2E' # base
-#     cursor: '#F5E0DC' # rosewater
-#   vi_mode_cursor:
-#     text: '#1E1E2E' # base
-#     cursor: '#B4BEFE' # lavender
-
-#   # Search colors
-#   search:
-#     matches:
-#       foreground: '#1E1E2E' # base
-#       background: '#A6ADC8' # subtext0
-#     focused_match:
-#       foreground: '#1E1E2E' # base
-#       background: '#A6E3A1' # green
-#   footer_bar:
-#     foreground: '#1E1E2E' # base
-#     background: '#A6ADC8' # subtext0
-
-#   # Keyboard regex hints
-#   hints:
-#     start:
-#       foreground: '#1E1E2E' # base
-#       background: '#F9E2AF' # yellow
-#     end:
-#       foreground: '#1E1E2E' # base
-#       background: '#A6ADC8' # subtext0
-
-#   # Selection colors
-#   selection:
-#     text: '#1E1E2E' # base
-#     background: '#F5E0DC' # rosewater
-
-#   # Normal colors
-#   normal:
-#     black:   '#45475A' # surface1
-#     red:     '#F38BA8' # red
-#     green:   '#A6E3A1' # green
-#     yellow:  '#F9E2AF' # yellow
-#     blue:    '#89B4FA' # blue
-#     magenta: '#F5C2E7' # pink
-#     cyan:    '#94E2D5' # teal
-#     white:   '#BAC2DE' # subtext1
-
-#   # Bright colors
-#   bright:
-#     black:   '#585B70' # surface2
-#     red:     '#F38BA8' # red
-#     green:   '#A6E3A1' # green
-#     yellow:  '#F9E2AF' # yellow
-#     blue:    '#89B4FA' # blue
-#     magenta: '#F5C2E7' # pink
-#     cyan:    '#94E2D5' # teal
-#     white:   '#A6ADC8' # subtext0
-
-#   # Dim colors
-#   dim:
-#     black:   '#45475A' # surface1
-#     red:     '#F38BA8' # red
-#     green:   '#A6E3A1' # green
-#     yellow:  '#F9E2AF' # yellow
-#     blue:    '#89B4FA' # blue
-#     magenta: '#F5C2E7' # pink
-#     cyan:    '#94E2D5' # teal
-#     white:   '#BAC2DE' # subtext1
-
-#   indexed_colors:
-#     - { index: 16, color: '#FAB387' }
-#     - { index: 17, color: '#F5E0DC' }
-
-
 # Specifying a `duration` of `0` will disable the visual bell.
 bell:
   animation: EaseOutExpo
@@ -174,7 +95,7 @@ selection:
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: true
 # Allow terminal applications to change Alacritty’s window title.
-window.dynamic_title: true
+window.dynamic_title: false
 cursor:
   style: Block
   unfocused_hollow: true
@@ -189,13 +110,16 @@ mouse:
 
 
 # tmux shortcuts MacOS
-# key_bindings:
-#   # new window
-#   - { key: T, mods: Command, chars: "\x02\x63" }
-#   # close pane
-#   - { key: W, mods: Command, chars: "\x02\x78" }
-#   # Switch to last tmux session
-#   - { key: L, mods: Command, chars: "\x02\x4c" }
+key_bindings:
+  # - { key: Q, mods: Command, action: None }
+  # new window
+  - { key: T, mods: Command, chars: "\x02\x63" }
+  # close pane
+  - { key: W, mods: Command, chars: "\x02\x78" }
+  # Switch to last tmux session
+  - { key: L, mods: Command, chars: "\x02\x4c" }
+  # Switch to last tmux window
+  - { key: Tab, mods: Control, chars: "\x02\x02" }
 #   # Change to the next tmux window
 #   - { key: LBracket, mods: Command, chars: "\x02\x5b" }
 #   # Change to the previous tmux window
