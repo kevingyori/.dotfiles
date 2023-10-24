@@ -3,6 +3,10 @@
 #   exec tmux attach || exec tmux new-session
 # fi
 
+# Quote/Phrase on startup
+fortune -n short | cowsay
+
+
 # Custom functions
 beepboop() {
     # sleep $(echo "$1 * 60" | bc)
