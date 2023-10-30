@@ -4,7 +4,7 @@
 # fi
 
 # Quote/Phrase on startup
-fortune -n short | cowsay
+# fortune -n short | cowsay
 
 
 # Custom functions
