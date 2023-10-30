@@ -56,4 +56,4 @@ vim.o.timeoutlen = 1000
 vim.o.completeopt = 'menuone,noselect'
 
 -- Highlight cursorlinenr
-vim.wo.cursorline = true
+-- vim.wo.cursorline = true
