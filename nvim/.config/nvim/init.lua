@@ -61,6 +61,15 @@ else
         vim.g.nordbones = {
           transparent_background = true,
         }
+        vim.g.zenbones = {
+          transparent_background = true,
+        }
+        vim.g.kanagawabones = {
+          transparent_background = true,
+        }
+        vim.g.seoulbones = {
+          transparent_background = true,
+        }
         vim.cmd [[colorscheme rosebones]]
       end,
     },
@@ -302,7 +311,7 @@ else
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
       vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
-    nmap('<leader>fo', vim.lsp.buf.format, '[F][O]rmat file')
+    nmap('<leader>df', vim.lsp.buf.format, '[D]ocument [F]ormat')
   end
 
   -- mason-lspconfig requires that these setup functions are called in this order
@@ -327,6 +336,7 @@ else
     tsserver = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
     tailwindcss = {},
+    rustywind = {},
     lua_ls = {
       Lua = {
         workspace = { checkThirdParty = false },
