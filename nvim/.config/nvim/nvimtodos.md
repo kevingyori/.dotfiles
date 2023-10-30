@@ -3,4 +3,5 @@ Stuff I still want to andjust in my nvim config
  - [ ] telescope live grep sometimes doesn't work in specific folders
  - [x] whichkey appears too soon - timeoutlen is too low
  - [ ] don't open neotree after opening nvim
- - [ ] show current file in neotree
+ - [x] show current file in neotree
+ - [ ] add whichkey group descriptions
