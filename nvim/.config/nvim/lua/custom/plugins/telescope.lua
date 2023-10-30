@@ -46,8 +46,6 @@ return {
 		pcall(require('telescope').load_extension, 'fzf')
 
 		-- See `:help telescope.builtin`
-		vim.keymap.set('n', '<leader>f?', require('telescope.builtin').oldfiles,
-			{ desc = '[?] Find recently opened files' })
 		vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers,
 			{ desc = '[F]ind existing [B]uffers' })
 		vim.keymap.set('n', '<leader>f/', function()
@@ -77,5 +75,7 @@ return {
 		vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]esume' })
 		vim.keymap.set('n', '<leader>ft', require('telescope.builtin').colorscheme,
 			{ desc = '[F]ind [T]hemes' })
+		vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles,
+			{ desc = '[F]ind [O]ldfiles' })
 	end
 }
