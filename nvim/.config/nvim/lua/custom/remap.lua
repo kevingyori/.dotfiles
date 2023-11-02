@@ -1,6 +1,7 @@
 -- Close the current buffer
 vim.keymap.set('n', '<leader>bd', '<cmd>bd<cr>', { desc = 'Close buffer' })
 
+
 -- File explorer nvim-tree
 vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<cr>', { desc = 'Exporer' })
 -- nnoremap <leader>s :Neotree float git_status<cr>

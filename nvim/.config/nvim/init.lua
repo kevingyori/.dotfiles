@@ -48,133 +48,10 @@ else
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
 
-    {
-      "mcchrish/zenbones.nvim",
-      dependencies = "rktjmp/lush.nvim",
-      config = function()
-        vim.g.rosebones = {
-          transparent_background = true,
-        }
-        vim.g.tokyobones = {
-          transparent_background = true,
-        }
-        vim.g.nordbones = {
-          transparent_background = true,
-        }
-        vim.g.zenbones = {
-          transparent_background = true,
-        }
-        vim.g.kanagawabones = {
-          transparent_background = true,
-        }
-        vim.g.seoulbones = {
-          transparent_background = true,
-        }
-        vim.cmd [[colorscheme rosebones]]
-      end,
-    },
-
-    {
-      "roobert/tailwindcss-colorizer-cmp.nvim",
-      -- optionally, override the default options:
-      config = function()
-        require("tailwindcss-colorizer-cmp").setup({
-          color_square_width = 2,
-        })
-      end
-    },
     -- NOTE: This is where your plugins related to LSP can be installed.
     --  The configuration is done below. Search for lspconfig to find it below.
-    {
-      -- LSP Configuration & Plugins
-      'neovim/nvim-lspconfig',
-      dependencies = {
-        -- Automatically install LSPs to stdpath for neovim
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
 
-        -- Useful status updates for LSP
-        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
-        -- Additional lua configuration, makes nvim stuff amazing!
-        'folke/neodev.nvim',
-      },
-    },
-
-    {
-      -- Autocompletion
-      'hrsh7th/nvim-cmp',
-      dependencies = {
-        -- Snippet Engine & its associated nvim-cmp source
-        'L3MON4D3/LuaSnip',
-        'saadparwaiz1/cmp_luasnip',
-
-        -- Adds LSP completion capabilities
-        'hrsh7th/cmp-nvim-lsp',
-
-        -- Adds a number of user-friendly snippets
-        'rafamadriz/friendly-snippets',
-      },
-    },
-
-    -- Useful plugin to show you pending keybinds.
-    {
-      -- Set lualine as statusline
-      'nvim-lualine/lualine.nvim',
-      -- See `:help lualine.txt`
-      opts = {
-        options = {
-          icons_enabled = false,
-          component_separators = '|',
-          section_separators = '',
-        },
-      },
-    },
-
-    {
-      "folke/zen-mode.nvim",
-      opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    },
-
-    {
-      -- Add indentation guides even on blank lines
-      'lukas-reineke/indent-blankline.nvim',
-      -- Enable `lukas-reineke/indent-blankline.nvim`
-      -- See `:help ibl`
-      main = 'ibl',
-      opts = {},
-    },
-
-    {
-      'numToStr/Comment.nvim',
-      opts = {
-      },
-      config = function()
-        require('Comment').setup {
-          ignore = '^$',
-          pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-        }
-      end,
-    },
-    {
-      'windwp/nvim-autopairs',
-      event = "InsertEnter",
-      opts = {
-        check_ts = true,
-        ts_config = {
-          lua = { 'string', 'source' }, -- it will not add pair on that treesitter node
-          javascript = { 'template_string' },
-          -- java = false,-- don't check treesitter on java
-        },
-        disable_filetype = { "TelescopePrompt" },
-        fast_wrap = {},
-      },
-    },
 
     -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
     --       These are some example plugins that I've included in the kickstart repository.
@@ -199,7 +76,7 @@ else
       end
     },
     "christoomey/vim-tmux-navigator",
-    "psliwka/vim-smoothie",
+    -- "psliwka/vim-smoothie",
 
     -- Github theme
     -- {
@@ -235,28 +112,6 @@ else
     { import = 'custom.plugins' },
   }, {})
 
-  ----------------------------------------- [[ Configure lualine ]] -----------------------------------------
-  local theme = require('lualine.themes.rosebones')
-  theme.normal.c.bg = 'none'
-  theme.normal.b.bg = 'none'
-  -- theme.insert.b.bg = 'none'
-  -- theme.visual.b.bg = 'none'
-  -- theme.replace.b.bg = 'none'
-  -- theme.command.b.bg = 'none'
-  -- theme.inactive.b.bg = 'none'
-
-  require('lualine').setup {
-    options = { theme = theme },
-    icons_enabled = false,
-    component_separators = '|',
-    section_separators = '',
-  }
-
-  -- options = { theme  = custom_gruvbox },
-  --
-
-
-  -- vim.cmd [[colorscheme rosebones require 'customBones']]
 
   ----------------------------------------- [[ Basic Options ]] -----------------------------------------
   -- See `:help vim.o`
@@ -269,6 +124,29 @@ else
   require('custom.remap')
 
   ----------------------------------------- [[ Configure LSP ]] -----------------------------------------
+
+
+  require("noice").setup({
+    lsp = {
+      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
+    },
+    -- you can enable a preset for easier configuration
+    presets = {
+      bottom_search = true,         -- use a classic bottom cmdline for search
+      command_palette = true,       -- position the cmdline and popupmenu together
+      long_message_to_split = true, -- long messages will be sent to a split
+      inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = false,       -- add a border to hover docs and signature help
+    },
+  })
+
+
+
   --  This function gets run when an LSP connects to a particular buffer.
   local on_attach = function(_, bufnr)
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
@@ -335,8 +213,6 @@ else
     astro = {},
     tsserver = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
-    tailwindcss = {},
-    rustywind = {},
     lua_ls = {
       Lua = {
         workspace = { checkThirdParty = false },

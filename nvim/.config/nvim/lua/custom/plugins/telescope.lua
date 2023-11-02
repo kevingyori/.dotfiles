@@ -22,6 +22,7 @@ return {
 		-- See `:help telescope` and `:help telescope.setup()`
 		require('telescope').setup {
 			defaults = {
+				file_ignore_patterns = { 'node_modules', '.git', 'lvim' },
 				mappings = {
 					i = {
 						['<C-u>'] = false,
@@ -46,7 +47,7 @@ return {
 		pcall(require('telescope').load_extension, 'fzf')
 
 		-- See `:help telescope.builtin`
-		vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers,
+		vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers,
 			{ desc = '[F]ind existing [B]uffers' })
 		vim.keymap.set('n', '<leader>f/', function()
 			-- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -73,9 +74,10 @@ return {
 		vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics,
 			{ desc = '[F]ind [D]iagnostics' })
 		vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]esume' })
-		vim.keymap.set('n', '<leader>ft', require('telescope.builtin').colorscheme,
-			{ desc = '[F]ind [T]hemes' })
+		vim.keymap.set('n', '<leader>fc', require('telescope.builtin').colorscheme,
+			{ desc = '[F]ind [C]olorscheme' })
 		vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles,
 			{ desc = '[F]ind [O]ldfiles' })
+		vim.keymap.set('n', '<leader>fm', require('telescope.builtin').marks, { desc = '[F]ind [M]arks' })
 	end
 }

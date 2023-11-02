@@ -5,3 +5,4 @@ Stuff I still want to andjust in my nvim config
  - [ ] don't open neotree after opening nvim
  - [x] show current file in neotree
  - [ ] add whichkey group descriptions
+ - [x] notifications
