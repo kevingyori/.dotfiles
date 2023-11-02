@@ -76,7 +76,7 @@ font_size 16.0
 
 #:     narrow_symbols codepoints [optionally the number of cells]
 
-# disable_ligatures never
+disable_ligatures never
 
 #: Choose how you want to handle multi-character ligatures. The
 #: default is to always render them. You can tell kitty to not render
@@ -188,8 +188,8 @@ font_size 16.0
 #: }}}
 
 #: Cursor customization {{{
-
-# cursor #cccccc
+# cursor #e6e6e6
+# cursor none
 
 #: Default cursor color. If set to the special value none the cursor
 #: will be rendered with a "reverse video" effect. It's color will be
@@ -198,7 +198,6 @@ font_size 16.0
 #: program running in the terminal sets a cursor color, this takes
 #: precedence. Also, the cursor colors are modified if the cell
 #: background and foreground colors have very low contrast.
-
 # cursor_text_color #111111
 
 #: The color of text under the cursor. If you want it rendered with
@@ -588,7 +587,7 @@ scrollback_lines 100000
 
 #: Performance tuning {{{
 
-repaint_delay 8
+# repaint_delay 8
 
 #: Delay between screen updates (in milliseconds). Decreasing it,
 #: increases frames-per-second (FPS) at the cost of more CPU usage.
@@ -606,7 +605,7 @@ repaint_delay 8
 #: in full screen programs that redraw the entire screen on each loop,
 #: because kitty is so fast that partial screen updates will be drawn.
 
-sync_to_monitor no
+sync_to_monitor yes
 
 #: Sync screen updates to the refresh rate of the monitor. This
 #: prevents screen tearing
@@ -2249,8 +2248,21 @@ macos_option_as_alt yes
 
 
 # BEGIN_KITTY_THEME
-# 3024 Night
+# Black Metal
 include current-theme.conf
 # END_KITTY_THEME
 # background #000000
 # background_opacity 0.8
+# map cmd+t no_op
+
+# macos tmux shortcuts
+# new window
+map cmd+t send_text all \x02\x63
+# new kitty tab
+map cmd+shift+t new_tab
+# close tmux window
+map cmd+w send_text all \x02\x78
+# close kitty tab
+map cmd+shift+w close_tab
+# previous tmux window
+map ctrl+tab send_text all \x02\x02
