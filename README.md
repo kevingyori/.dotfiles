@@ -15,8 +15,12 @@ stow */ # Everything (the '/' ignores the files such as the README)
 ```
 
 ```bash
-stow zsh # Just my zsh config
+stow nvim # Just my nvim config
 ```
+
+## What stuff is in here?
+
+### 
 
 ## Programs
 TODO
