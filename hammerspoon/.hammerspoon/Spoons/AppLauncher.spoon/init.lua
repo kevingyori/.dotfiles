@@ -35,7 +35,7 @@ obj.license = "ISC - https://opensource.org/licenses/ISC"
 --- Modifier keys used when launching apps
 ---
 --- Default value: `{"ctrl", "alt"}`
-obj.modifiers = {"ctrl", "alt"}
+obj.modifiers = { "ctrl", "cmd", "alt", "shift", "fn" }
 
 --- AppLauncher:bindHotkeys(mapping)
 --- Method
