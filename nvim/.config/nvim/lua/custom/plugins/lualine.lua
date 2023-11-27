@@ -39,17 +39,19 @@ return {
 	-- See `:help lualine.txt`
 	opts = {
 		options = {
-			theme = 'auto',
+			-- theme = 'auto',
 			globalstatus = true,
 			icons_enabled = false,
 			component_separators = '|',
 			section_separators = '',
-			sections = {
-				lualine_a = { 'mode' },
-				lualine_b = { 'branch', 'diff', 'diagnostics' },
-				lualine_c = { 'filename' },
-				lualine_x = { 'fileformat', 'filetype' },
-			},
+		},
+		sections = {
+			lualine_a = { 'mode' },
+			lualine_b = { 'branch', 'diff', 'diagnostics' },
+			lualine_c = { 'filename' },
+			lualine_x = { 'searchcount' },
+			lualine_y = { 'fileformat', 'filetype' },
+			lualine_z = {},
 		},
 	},
 }

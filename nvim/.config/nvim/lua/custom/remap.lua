@@ -19,11 +19,11 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = '*',
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
 })
 
 -- Diagnostic keymaps
@@ -68,3 +68,8 @@ vim.keymap.set('v', '<leader>/', '<Plug>(comment_toggle_linewise_visual)', { des
 
 -- Alternate file with <leader>o
 vim.keymap.set('n', '<leader>o', '<cmd>e#<cr>', { desc = 'Alternate file' })
+
+-- quickfix
+vim.keymap.set('n', '<leader>q', '<cmd>lua require("telescope.builtin").quickfix()<cr>', { desc = 'Quickfix' })
+vim.keymap.set('n', '<leader>cj', '<cmd>cprev<cr>', { desc = 'Previous quickfix' })
+vim.keymap.set('n', '<leader>ck', '<cmd>cnext<cr>', { desc = 'Next quickfix' })

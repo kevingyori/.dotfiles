@@ -8,7 +8,7 @@ return {
 			lsp = true,
 		},
 	},
-	config = {
-		vim.keymap.set('n', '<leader>cc', '<cmd>CccPick<CR>', { desc = 'Color Picker' }),
-	}
+	config = function()
+		vim.keymap.set('n', '<leader>cc', '<cmd>CccPick<CR>', { desc = 'Color Picker' })
+	end
 }

@@ -76,14 +76,47 @@ else
       end
     },
     "christoomey/vim-tmux-navigator",
-    -- "psliwka/vim-smoothie",
 
     -- Github theme
+    {
+      'projekt0n/github-nvim-theme',
+      -- lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+      -- priority = 1000, -- make sure to load this before all the other start plugins
+      config = function()
+        -- vim.cmd [[colorscheme github_dark_high_contrast]]
+      end
+    },
+    { 'rebelot/kanagawa.nvim' },
+    { 'sainnhe/everforest' },
+    'EdenEast/nightfox.nvim',
+    'folke/tokyonight.nvim',
+    'marko-cerovac/material.nvim',
+    'nanotech/jellybeans.vim',
+    'dracula/vim',
+    'sainnhe/sonokai',
+    'fenetikm/falcon',
+    'olivercederborg/poimandres.nvim',
+    'catppuccin/nvim',
+    -- zenbones
+    -- "mcchrish/zenbones.nvim",
+    -- "rktjmp/lush.nvim",
+    {
+      "nyoom-engineering/oxocarbon.nvim",
+      -- lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+      -- priority = 1000, -- make sure to load this before all the other start plugins
+      -- config = function()
+      -- vim.cmd [[colorscheme oxocarbon]]
+      -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+      -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+      -- end
+    },
+
+
     -- {
-    --   'projekt0n/github-nvim-theme',
-    --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-    --   priority = 1000, -- make sure to load this before all the other start plugins
+    --   "nvim-telescope/telescope-file-browser.nvim",
+    --   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     -- },
+
 
 
     -- Auto switch themes based on system setting

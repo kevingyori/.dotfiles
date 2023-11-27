@@ -60,3 +60,6 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- Highlight cursorlinenr
 -- vim.wo.cursorline = true
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f4f0cd" })
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
