@@ -10,7 +10,7 @@
         {
             "complex_modifications": {
                 "parameters": {
-                    "basic.simultaneous_threshold_milliseconds": 150,
+                    "basic.simultaneous_threshold_milliseconds": 30,
                     "basic.to_delayed_action_delay_milliseconds": 500,
                     "basic.to_if_alone_timeout_milliseconds": 150,
                     "basic.to_if_held_down_threshold_milliseconds": 500,
@@ -42,12 +42,38 @@
                         ]
                     },
                     {
+                        "manipulators": [
+                            {
+                                "description": "Change right option to Hyper (i.e., command+control+option+shift)",
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "CAPS => ESCAPE/CTRL, CAPS+CMD+JKHL => Arrow Keys",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -70,7 +96,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -93,7 +119,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -116,7 +142,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -162,12 +188,26 @@
                                     "key_code": "caps_lock",
                                     "simultaneous": [
                                         {
-                                            "key_code": "caps_lock"
+                                            "key_code": "s"
                                         },
                                         {
-                                            "key_code": "left_command"
+                                            "key_code": "d"
                                         }
                                     ],
+                                    "simultaneous_options": {
+                                        "detect_key_down_uninterruptedly": true,
+                                        "key_down_order": "insensitive",
+                                        "key_up_order": "insensitive",
+                                        "key_up_when": "any",
+                                        "to_after_key_up": [
+                                            {
+                                                "set_variable": {
+                                                    "name": "superduper-mode",
+                                                    "value": 0
+                                                }
+                                            }
+                                        ]
+                                    },
                                     "modifiers": {
                                         "optional": [
                                             "any"
@@ -177,22 +217,9 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "hyper pressed",
+                                            "name": "superduper-mode",
                                             "value": 1
                                         }
-                                    }
-                                ],
-                                "to_after_key_up": [
-                                    {
-                                        "set_variable": {
-                                            "name": "hyper pressed",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "escape"
                                     }
                                 ],
                                 "type": "basic"
@@ -205,7 +232,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -228,7 +255,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -251,7 +278,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -274,7 +301,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -297,30 +324,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "s",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open -a 'Spotify.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -343,30 +347,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "shell_command": "open -a 'Discord.app'"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -394,7 +375,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -421,7 +402,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -448,7 +429,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -475,7 +456,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -502,7 +483,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -529,7 +510,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -562,7 +543,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper pressed",
+                                        "name": "superduper-mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
