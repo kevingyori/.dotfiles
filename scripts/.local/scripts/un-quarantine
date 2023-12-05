@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Check if an argument is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <app_location>"
+    exit 1
+fi
+
+app_location=$1
+
+# Run the commands
+xattr -cr "$app_location" && codesign --force --deep --sign - "$app_location"
