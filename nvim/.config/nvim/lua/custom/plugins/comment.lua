@@ -27,5 +27,8 @@ return {
 				require('ts_context_commentstring.internal').update_commentstring()
 			end,
 		}
+
+		vim.keymap.set('n', '<leader>/', '<Plug>(comment_toggle_linewise_current)', { desc = 'Comment line' })
+		vim.keymap.set('v', '<leader>/', '<Plug>(comment_toggle_linewise_visual)', { desc = 'Comment line' })
 	end,
 }

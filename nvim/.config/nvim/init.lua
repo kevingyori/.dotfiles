@@ -57,7 +57,7 @@ else
     --       These are some example plugins that I've included in the kickstart repository.
     --       Uncomment any of the lines below to enable them.
     require 'kickstart.plugins.autoformat',
-    -- require 'kickstart.plugins.debug',
+    require 'kickstart.plugins.debug',
 
     ----------- my custom plugins
 
@@ -203,7 +203,7 @@ else
     nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>fy', require('telescope.builtin').lsp_document_symbols, '[F]ind S[y]mbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
     -- See `:help K` for why this keymap
