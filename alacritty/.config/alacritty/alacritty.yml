@@ -41,53 +41,53 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 # draw_bold_text_with_bright_colors: true
 ## Rose pines Dawn
-colors:
-  primary:
-    background: '#000000' # base
-    foreground: "0xe0def4"
-  # cursor:
-  #   text: "0xe0def4"
-  #   cursor: "0x524f67"
-  vi_mode_cursor:
-    text: "0xe0def4"
-    cursor: "0x524f67"
-  line_indicator:
-    foreground: None
-    background: None
-  selection:
-    text: "0xe0def4"
-    background: "0x403d52"
-  normal:
-    black: "0x26233a"
-    red: "0xeb6f92"
-    green: "0x31748f"
-    yellow: "0xf6c177"
-    blue: "0x9ccfd8"
-    magenta: "0xc4a7e7"
-    cyan: "0xebbcba"
-    white: "0xe0def4"
-  bright:
-    black: "0x6e6a86"
-    red: "0xeb6f92"
-    green: "0x31748f"
-    yellow: "0xf6c177"
-    blue: "0x9ccfd8"
-    magenta: "0xc4a7e7"
-    cyan: "0xebbcba"
-    white: "0xe0def4"
-  hints:
-    start:
-      foreground: "#908caa"
-      background: "#1f1d2e"
-    end:
-      foreground: "#6e6a86"
-      background: "#1f1d2e"
+# colors:
+#   primary:
+#     background: '#000000' # base
+#     foreground: "0xe0def4"
+#   # cursor:
+#   #   text: "0xe0def4"
+#   #   cursor: "0x524f67"
+#   vi_mode_cursor:
+#     text: "0xe0def4"
+#     cursor: "0x524f67"
+#   line_indicator:
+#     foreground: None
+#     background: None
+#   selection:
+#     text: "0xe0def4"
+#     background: "0x403d52"
+#   normal:
+#     black: "0x26233a"
+#     red: "0xeb6f92"
+#     green: "0x31748f"
+#     yellow: "0xf6c177"
+#     blue: "0x9ccfd8"
+#     magenta: "0xc4a7e7"
+#     cyan: "0xebbcba"
+#     white: "0xe0def4"
+#   bright:
+#     black: "0x6e6a86"
+#     red: "0xeb6f92"
+#     green: "0x31748f"
+#     yellow: "0xf6c177"
+#     blue: "0x9ccfd8"
+#     magenta: "0xc4a7e7"
+#     cyan: "0xebbcba"
+#     white: "0xe0def4"
+#   hints:
+#     start:
+#       foreground: "#908caa"
+#       background: "#1f1d2e"
+#     end:
+#       foreground: "#6e6a86"
+#       background: "#1f1d2e"
 
 # Specifying a `duration` of `0` will disable the visual bell.
 bell:
   animation: EaseOutExpo
   duration: 0
-  color: '0xffffff'
+  color: "0xffffff"
 selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
@@ -107,7 +107,6 @@ mouse:
     launcher:
       program: open
     modifiers: Command
-
 
 # tmux shortcuts MacOS
 key_bindings:

@@ -7,4 +7,8 @@ return {
     "echasnovski/mini.indentscope",
     enabled = false,
   },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   enabled = false,
+  -- },
 }

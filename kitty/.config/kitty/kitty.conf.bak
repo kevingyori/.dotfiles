@@ -2248,7 +2248,7 @@ macos_option_as_alt yes
 
 
 # BEGIN_KITTY_THEME
-# Gruvbox Material Dark Medium
+# Gruvbox Material Dark Soft
 include current-theme.conf
 # END_KITTY_THEME
 # background #000000
