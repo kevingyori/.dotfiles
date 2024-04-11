@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export BW_SESSION:
+SETUVAR --export --path GOPATH:/Users/kevingyori/go
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
 SETUVAR Z_DATA:/Users/kevingyori/\x2elocal/share/z/data
