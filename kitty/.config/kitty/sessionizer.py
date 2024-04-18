@@ -99,7 +99,7 @@ def handle_result(
         path, *rest = answer.split()
         dir = os.path.basename(path)
 
-    with open(f"{os.path.expanduser('~')}/.config/kitty/meow/history", "a") as history:
+    with open(f"{os.path.expanduser('~')}/.config/kitty/history", "a") as history:
         history.write(f"{dir} {datetime.now().isoformat()}\n")
         history.close()
 
