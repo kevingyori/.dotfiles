@@ -1,3 +1,5 @@
+# modified from https://github.com/taylorzr/kitty-meow
+
 from kittens.tui.handler import result_handler
 import argparse
 import json
