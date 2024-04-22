@@ -127,7 +127,7 @@ def handle_result(
 
     # start editor and another window
     boss.call_remote_control(parent_window, ("send-text", "lv .\n"))
-    boss.call_remote_control(
-        parent_window,
-        ("launch", "--type", "window", "--dont-take-focus", "--cwd", path),
-    )
+    # boss.call_remote_control(
+    #     parent_window,
+    #     ("launch", "--type", "window", "--dont-take-focus", "--cwd", path),
+    # )
