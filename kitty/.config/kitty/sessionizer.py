@@ -73,10 +73,18 @@ def main(args: List[str]) -> str:
     bind = 'alt-l:change-prompt({0}> )+reload(printf "{1}")'.format(
         default_prompt, "\n".join(tabs_and_projects)
     )
+
     args = [
         f"{bin_path}fzf",
-        f"--prompt={default_prompt}> ",
+        # f"--prompt={default_prompt}> ",
         f"--bind={bind}",
+        "--height=50%",
+        "--margin=5%,2%,2%,5%",
+        "--layout=reverse-list",
+        "--border=bold",
+        "--info=inline",
+        "--pointer=→",
+        "--color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black",
     ]
     p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     out = p.communicate(input="\n".join(tabs_and_projects).encode())[0]
