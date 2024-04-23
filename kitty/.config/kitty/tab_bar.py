@@ -10,6 +10,7 @@ from kitty.tab_bar import (
     ExtraData,
     TabBarData,
     as_rgb,
+    draw_title,
     draw_tab_with_separator,
 )
 from kitty.utils import color_as_int
@@ -32,7 +33,7 @@ def draw_tab(
     extra_data: ExtraData,
 ) -> int:
 
-    draw_tab_with_separator(
+    _draw_left_status(
         draw_data, screen, tab, before, max_title_length, index, is_last, extra_data
     )
 
@@ -83,6 +84,57 @@ def _draw_right_status(screen: Screen, is_last: bool) -> int:
     screen.cursor.x = max(
         screen.cursor.x, screen.columns - right_status_length)
     return screen.cursor.x
+
+
+SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
+RIGHT_MARGIN = 0
+ICON = "  "
+
+
+def _draw_left_status(
+    draw_data: DrawData,
+    screen: Screen,
+    tab: TabBarData,
+    before: int,
+    max_title_length: int,
+    index: int,
+    is_last: bool,
+    extra_data: ExtraData,
+) -> int:
+    # if screen.cursor.x >= screen.columns - right_status_length:
+    #     return screen.cursor.x
+    tab_bg = screen.cursor.bg
+    tab_fg = screen.cursor.fg
+    default_bg = as_rgb(int(draw_data.default_bg))
+    if extra_data.next_tab:
+        next_tab_bg = as_rgb(draw_data.tab_bg(extra_data.next_tab))
+        needs_soft_separator = next_tab_bg == tab_bg
+    else:
+        next_tab_bg = default_bg
+        needs_soft_separator = False
+    # if screen.cursor.x <= len(ICON):
+    #     screen.cursor.x = len(ICON)
+    # screen.draw(" ")
+    screen.cursor.bg = tab_bg
+    draw_title(draw_data, screen, tab, index)
+    if not needs_soft_separator:
+        screen.draw(" ")
+        screen.cursor.fg = tab_bg
+        screen.cursor.bg = next_tab_bg
+        screen.draw(SEPARATOR_SYMBOL)
+    else:
+        prev_fg = screen.cursor.fg
+        if tab_bg == tab_fg:
+            screen.cursor.fg = default_bg
+        elif tab_bg != default_bg:
+            c1 = draw_data.inactive_bg.contrast(draw_data.default_bg)
+            c2 = draw_data.inactive_bg.contrast(draw_data.inactive_fg)
+            if c1 < c2:
+                screen.cursor.fg = default_bg
+        screen.cursor.fg = prev_fg  # separator_fg
+        screen.draw(" " + SOFT_SEPARATOR_SYMBOL)
+    end = screen.cursor.x
+    return end
 
 
 def to_sup(s):
