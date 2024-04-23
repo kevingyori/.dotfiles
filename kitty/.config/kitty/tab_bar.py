@@ -18,7 +18,13 @@ from kitty.utils import color_as_int
 opts = get_options()
 
 # colors
-BACKGROUND = as_rgb(color_as_int(opts.tab_bar_background))
+TABBAR_BG = as_rgb(color_as_int(opts.tab_bar_background))
+
+ACTIVE_BG = as_rgb(color_as_int(opts.active_tab_background))
+ACTIVE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
+INACTIVE_BG = as_rgb(color_as_int(opts.inactive_tab_background))
+INACTIVE_FG = as_rgb(color_as_int(opts.inactive_tab_foreground))
+
 MAGENTA = as_rgb(color_as_int(opts.color5))
 
 
@@ -38,22 +44,23 @@ def draw_tab(
     )
 
     if is_last:
-        _draw_right_status(screen, is_last)
+        _draw_right_status(screen, draw_data)
 
     return screen.cursor.x
 
 
-def _draw_right_status(screen: Screen, is_last: bool) -> int:
+def _draw_right_status(screen: Screen, draw_data: DrawData) -> int:
 
     tab_manager = get_boss().active_tab_manager
     cells = []
+    LOWER_RIGHT_TRIANGLE = ''
 
     if tab_manager is not None:
         windows = tab_manager.active_tab.windows.all_windows
         if windows is not None:
             for i, window in enumerate(windows):
-                window_fg = BACKGROUND if window.id == tab_manager.active_window.id else MAGENTA
-                window_bg = MAGENTA if window.id == tab_manager.active_window.id else BACKGROUND
+                window_fg = ACTIVE_FG if window.id == tab_manager.active_window.id else INACTIVE_FG
+                window_bg = MAGENTA if window.id == tab_manager.active_window.id else INACTIVE_BG
                 sup = to_sup(str(i + 1))
 
                 cells.insert(i, (window_fg, window_bg,
