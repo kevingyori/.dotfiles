@@ -130,7 +130,19 @@ def handle_result(
 
     # start editor and another window
     boss.call_remote_control(parent_window, ("send-text", "lv .\n"))
-    # boss.call_remote_control(
-    #     parent_window,
-    #     ("launch", "--type", "window", "--dont-take-focus", "--cwd", path),
-    # )
+    boss.call_remote_control(parent_window, ("set-window-title", "  "))
+    boss.call_remote_control(
+        parent_window,
+        ("launch", "--type", "window", "--dont-take-focus",
+         "--cwd", path, "--title", " "),
+    )
+
+    git_title = " "
+
+    boss.call_remote_control(
+        parent_window,
+        ("launch", "--type", "window", "--dont-take-focus",
+         "--cwd", path, "--title", git_title, "--location", "last"),
+    )
+    boss.call_remote_control(
+        parent_window, ("send-text", "--match", "title:^" + git_title, "lazygit\n"))
