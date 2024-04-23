@@ -1,6 +1,9 @@
+# pyright: reportMissingImports=false
+# pylint: disable=E0401,C0116,C0103,W0603,R0913
+
 # modified from https://github.com/taylorzr/kitty-meow
 
-from kittens.tui.handler import result_handler
+# from kittens.tui.handler import result_handler
 import argparse
 import json
 import os
