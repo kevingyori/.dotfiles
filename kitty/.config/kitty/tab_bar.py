@@ -54,17 +54,43 @@ def _draw_right_status(screen: Screen, draw_data: DrawData) -> int:
     tab_manager = get_boss().active_tab_manager
     cells = []
     LOWER_RIGHT_TRIANGLE = ''
+    FORWARD_SLASH = ''
 
     if tab_manager is not None:
         windows = tab_manager.active_tab.windows.all_windows
         if windows is not None:
             for i, window in enumerate(windows):
-                window_fg = ACTIVE_FG if window.id == tab_manager.active_window.id else INACTIVE_FG
-                window_bg = MAGENTA if window.id == tab_manager.active_window.id else INACTIVE_BG
+                is_active = window.id == tab_manager.active_window.id
+                is_first = i == 0
+                is_prev_active = windows[i -
+                                         1].id == tab_manager.active_window.id if not is_first else False
+
                 sup = to_sup(str(i + 1))
 
-                cells.insert(i, (window_fg, window_bg,
-                             f" {sup} {window.title} "))
+                window_fg = ACTIVE_FG if is_active else INACTIVE_FG
+                window_bg = MAGENTA if is_active else INACTIVE_BG
+
+                if is_first:
+                    sep = LOWER_RIGHT_TRIANGLE
+                    sep_bg = TABBAR_BG
+                    sep_fg = INACTIVE_BG if not is_active else MAGENTA
+                elif is_active:
+                    sep = LOWER_RIGHT_TRIANGLE
+                    sep_bg = INACTIVE_BG
+                    sep_fg = MAGENTA
+                elif is_prev_active:
+                    sep = LOWER_RIGHT_TRIANGLE
+                    sep_bg = MAGENTA
+                    sep_fg = INACTIVE_BG
+                else:
+                    sep = FORWARD_SLASH
+                    sep_bg = INACTIVE_BG
+                    sep_fg = INACTIVE_FG
+
+                cells.insert(
+                    i*2, (window_fg, window_bg, f" {sup} {window.title} "))
+                cells.insert(
+                    i*2, (sep_fg, sep_bg, sep))
 
     # calculate leading spaces to separate tabs from right status
     right_status_length = 0
@@ -94,7 +120,6 @@ def _draw_right_status(screen: Screen, draw_data: DrawData) -> int:
 
 
 SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
-RIGHT_MARGIN = 0
 ICON = "  "
 
 
