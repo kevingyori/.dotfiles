@@ -3,7 +3,6 @@
 # pylint: disable=E0401,C0116,C0103,W0603,R0913
 
 import math
-from pathlib import Path
 from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, get_options
 from kitty.tab_bar import (
@@ -17,14 +16,9 @@ from kitty.utils import color_as_int
 
 opts = get_options()
 
-magenta = as_rgb(color_as_int(opts.color5))
-surface1 = as_rgb(int("45475A", 16))
-base = as_rgb(color_as_int(opts.tab_bar_background))
-window_icon = ""
-layout_icon = ""
-active_tab_layout_name = ""
-active_tab_num_windows = 1
-left_status_length = 0
+# colors
+BACKGROUND = as_rgb(color_as_int(opts.tab_bar_background))
+MAGENTA = as_rgb(color_as_int(opts.color5))
 
 
 def draw_tab(
@@ -37,32 +31,10 @@ def draw_tab(
     is_last: bool,
     extra_data: ExtraData,
 ) -> int:
-    global active_tab_layout_name
-    global active_tab_num_windows
-
-    if tab.is_active:
-        active_tab_layout_name = tab.layout_name
-        active_tab_num_windows = tab.num_windows
-
-    # if index == 1:
-    #     _draw_left_status(screen)
 
     draw_tab_with_separator(
         draw_data, screen, tab, before, max_title_length, index, is_last, extra_data
     )
-
-    # calculate and insert leading spaces to separate tabs from left status
-    # if is_last:
-    #     screen_cursor_x = screen.cursor.x
-    #     center_status_length = screen_cursor_x - left_status_length
-    #     leading_spaces = math.ceil(
-    #         (screen.columns - left_status_length * 2 - center_status_length) / 2
-    #     )dark
-    #     screen.cursor.x = left_status_length
-    #     screen.insert_characters(leading_spaces)
-    #     # TODO: fix tab click handlers
-    #     # self.cell_ranges = [(s + leading_spaces, e + leading_spaces) for (s, e) in self.cell_ranges]
-    #     screen.cursor.x = screen_cursor_x + leading_spaces
 
     if is_last:
         _draw_right_status(screen, is_last)
@@ -70,58 +42,30 @@ def draw_tab(
     return screen.cursor.x
 
 
-def _draw_left_status(screen: Screen):
-    global left_status_length
-
-    cwd = get_cwd()
-    cells = [
-        (surface1, base, cwd),
-    ]
-
-    left_status_length = 0
-    for _, _, cell in cells:
-        left_status_length += len(cell)
-
-    # draw right status
-    for fg, bg, cell in cells:
-        screen.cursor.fg = fg
-        screen.cursor.bg = bg
-        screen.draw(cell)
-    screen.cursor.fg = 0
-    screen.cursor.bg = 0
-
-    # update cursor position
-    screen.cursor.x = left_status_length
-    return screen.cursor.x
-
-
 def _draw_right_status(screen: Screen, is_last: bool) -> int:
-    is_stack = active_tab_layout_name == "stack"
-    layout_fg = base if is_stack else magenta
-    layout_bg = magenta if is_stack else screen.cursor.bg
-    # left_padding_icon = " " if is_stack else " "
-    # right_padding_icon = " " if is_stack else " "
-    cells = [
-        # layout name
-        (layout_fg, layout_bg, " " + layout_icon + " "),
-        (layout_fg, layout_bg, active_tab_layout_name + " "),
-        # num windows
-        (magenta, base, " " + window_icon + " "),
-        (magenta, base, str(active_tab_num_windows)),
-    ]
+
+    tab_manager = get_boss().active_tab_manager
+    cells = []
+
+    if tab_manager is not None:
+        windows = tab_manager.active_tab.windows.all_windows
+        if windows is not None:
+            for i, window in enumerate(windows):
+                window_fg = BACKGROUND if window.id == tab_manager.active_window.id else MAGENTA
+                window_bg = MAGENTA if window.id == tab_manager.active_window.id else BACKGROUND
+                sup = to_sup(str(i + 1))
+
+                cells.insert(i, (window_fg, window_bg,
+                             f" {sup} {window.title} "))
 
     # calculate leading spaces to separate tabs from right status
     right_status_length = 0
     for _, _, cell in cells:
         right_status_length += len(cell)
+
+    # calculate leading spaces
     leading_spaces = 0
-    if opts.tab_bar_align == "center":
-        leading_spaces = (
-            math.ceil((screen.columns - screen.cursor.x) / 2) -
-            right_status_length
-        )
-    elif opts.tab_bar_align == "left":
-        leading_spaces = screen.columns - screen.cursor.x - right_status_length
+    leading_spaces = screen.columns - screen.cursor.x - right_status_length
 
     # draw leading spaces
     if leading_spaces > 0:
@@ -141,48 +85,16 @@ def _draw_right_status(screen: Screen, is_last: bool) -> int:
     return screen.cursor.x
 
 
-def truncate_str(input_str, max_length):
-    if len(input_str) > max_length:
-        half = max_length // 2
-        return input_str[:half] + "…" + input_str[-half:]
-    else:
-        return input_str
+def to_sup(s):
+    sups = {u'0': u'\u2070',
+            u'1': u'\xb9',
+            u'2': u'\xb2',
+            u'3': u'\xb3',
+            u'4': u'\u2074',
+            u'5': u'\u2075',
+            u'6': u'\u2076',
+            u'7': u'\u2077',
+            u'8': u'\u2078',
+            u'9': u'\u2079'}
 
-
-def get_cwd():
-    cwd = ""
-    tab_manager = get_boss().active_tab_manager
-    if tab_manager is not None:
-        window = tab_manager.active_window
-        if window is not None:
-            cwd = window.cwd_of_child
-
-    cwd_parts = list(Path(cwd).parts)
-    if len(cwd_parts) > 1:
-        if cwd_parts[1] == "home":
-            # replace /home/{{username}}
-            cwd_parts = ["~"] + cwd_parts[3:]
-            if len(cwd_parts) > 1:
-                cwd_parts[0] = "~/"
-        else:
-            cwd_parts[0] = "/"
-    else:
-        cwd_parts[0] = "/"
-
-    max_length = 10
-    if len(cwd_parts) < 3:
-        cwd = cwd_parts[0] + "/".join(
-            [
-                s if len(s) <= max_length else truncate_str(s, max_length)
-                for s in cwd_parts[1:]
-            ]
-        )
-    else:
-        cwd = "…/" + "/".join(
-            [
-                s if len(s) <= max_length else truncate_str(s, max_length)
-                for s in cwd_parts[-2:]
-            ]
-        )
-
-    return cwd
+    return ''.join(sups.get(char, char) for char in s)
