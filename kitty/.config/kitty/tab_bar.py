@@ -16,6 +16,8 @@ from kitty.utils import color_as_int
 opts = get_options()
 
 # colors
+# MAGENTA_1 = as_rgb(color_as_int(opts.color5))
+
 TABBAR_BG = as_rgb(color_as_int(opts.tab_bar_background or opts.color0))
 
 ACTIVE_BG = as_rgb(color_as_int(opts.active_tab_background or opts.color8))
@@ -24,7 +26,7 @@ INACTIVE_BG = as_rgb(color_as_int(
     opts.inactive_tab_background or opts.color12))
 INACTIVE_FG = as_rgb(color_as_int(opts.inactive_tab_foreground or opts.color7))
 
-MAGENTA = as_rgb(color_as_int(opts.color5))
+ACTIVE_WINDOW_BG = as_rgb(color_as_int(opts.color6))
 
 
 def draw_tab(
@@ -67,19 +69,19 @@ def _draw_right_status(screen: Screen) -> int:
                 sup = to_sup(str(i + 1))
 
                 window_fg = ACTIVE_FG if is_active else INACTIVE_FG
-                window_bg = MAGENTA if is_active else INACTIVE_BG
+                window_bg = ACTIVE_WINDOW_BG if is_active else INACTIVE_BG
 
                 if is_first:
                     sep = LOWER_RIGHT_TRIANGLE
                     sep_bg = TABBAR_BG
-                    sep_fg = INACTIVE_BG if not is_active else MAGENTA
+                    sep_fg = INACTIVE_BG if not is_active else ACTIVE_WINDOW_BG
                 elif is_active:
                     sep = LOWER_RIGHT_TRIANGLE
                     sep_bg = INACTIVE_BG
-                    sep_fg = MAGENTA
+                    sep_fg = ACTIVE_WINDOW_BG
                 elif is_prev_active:
                     sep = LOWER_RIGHT_TRIANGLE
-                    sep_bg = MAGENTA
+                    sep_bg = ACTIVE_WINDOW_BG
                     sep_fg = INACTIVE_BG
                 else:
                     sep = FORWARD_SLASH
