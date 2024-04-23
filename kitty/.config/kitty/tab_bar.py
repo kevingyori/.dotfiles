@@ -2,7 +2,6 @@
 # pyright: reportMissingImports=false
 # pylint: disable=E0401,C0116,C0103,W0603,R0913
 
-import math
 from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, get_options
 from kitty.tab_bar import (
@@ -11,19 +10,19 @@ from kitty.tab_bar import (
     TabBarData,
     as_rgb,
     draw_title,
-    draw_tab_with_separator,
 )
 from kitty.utils import color_as_int
 
 opts = get_options()
 
 # colors
-TABBAR_BG = as_rgb(color_as_int(opts.tab_bar_background))
+TABBAR_BG = as_rgb(color_as_int(opts.tab_bar_background or opts.color0))
 
-ACTIVE_BG = as_rgb(color_as_int(opts.active_tab_background))
-ACTIVE_FG = as_rgb(color_as_int(opts.active_tab_foreground))
-INACTIVE_BG = as_rgb(color_as_int(opts.inactive_tab_background))
-INACTIVE_FG = as_rgb(color_as_int(opts.inactive_tab_foreground))
+ACTIVE_BG = as_rgb(color_as_int(opts.active_tab_background or opts.color8))
+ACTIVE_FG = as_rgb(color_as_int(opts.active_tab_foreground or opts.color4))
+INACTIVE_BG = as_rgb(color_as_int(
+    opts.inactive_tab_background or opts.color12))
+INACTIVE_FG = as_rgb(color_as_int(opts.inactive_tab_foreground or opts.color7))
 
 MAGENTA = as_rgb(color_as_int(opts.color5))
 
@@ -44,12 +43,12 @@ def draw_tab(
     )
 
     if is_last:
-        _draw_right_status(screen, draw_data)
+        _draw_right_status(screen)
 
     return screen.cursor.x
 
 
-def _draw_right_status(screen: Screen, draw_data: DrawData) -> int:
+def _draw_right_status(screen: Screen) -> int:
 
     tab_manager = get_boss().active_tab_manager
     cells = []
