@@ -16,7 +16,10 @@ from kitty.utils import color_as_int
 opts = get_options()
 
 # colors
-# MAGENTA_1 = as_rgb(color_as_int(opts.color5))
+MAGENTA_1 = as_rgb(color_as_int(opts.color5))
+BLUE_1 = as_rgb(color_as_int(opts.color4))
+YELLOW_1 = as_rgb(color_as_int(opts.color3))
+WHITE_2 = as_rgb(color_as_int(opts.color15))
 
 TABBAR_BG = as_rgb(color_as_int(opts.tab_bar_background or opts.color0))
 
@@ -40,71 +43,57 @@ def draw_tab(
     extra_data: ExtraData,
 ) -> int:
 
-    _draw_left_status(
+    _draw_tab_status(
         draw_data, screen, tab, before, max_title_length, index, is_last, extra_data
     )
 
     if is_last:
-        _draw_right_status(screen)
+        _draw_window_status(screen)
 
     return screen.cursor.x
 
 
-def _draw_right_status(screen: Screen) -> int:
+SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
 
-    tab_manager = get_boss().active_tab_manager
+
+def _draw_window_status(screen: Screen) -> int:
+
+    tm = get_boss().active_tab_manager
     cells = []
-    LOWER_RIGHT_TRIANGLE = ''
-    FORWARD_SLASH = ''
 
-    if tab_manager is not None:
-        windows = tab_manager.active_tab.windows.all_windows
+    if tm is not None:
+        windows = tm.active_tab.windows.all_windows
         if windows is not None:
             for i, window in enumerate(windows):
-                is_active = window.id == tab_manager.active_window.id
-                is_first = i == 0
-                is_prev_active = windows[i -
-                                         1].id == tab_manager.active_window.id if not is_first else False
+                is_active = window.id == tm.active_window.id
+                # is_first = i == 0
+                is_last = i == len(windows) - 1
+                # is_prev_active = windows[i -
+                # 1].id == tm.active_window.id if not is_first else False
 
                 sup = to_sup(str(i + 1))
 
-                window_fg = ACTIVE_FG if is_active else INACTIVE_FG
-                window_bg = ACTIVE_WINDOW_BG if is_active else INACTIVE_BG
+                window_fg = YELLOW_1 if is_active else WHITE_2
+                window_bg = INACTIVE_BG
 
-                if is_first:
-                    sep = LOWER_RIGHT_TRIANGLE
+                if is_last:
+                    sep = SEPARATOR_SYMBOL
                     sep_bg = TABBAR_BG
-                    sep_fg = INACTIVE_BG if not is_active else ACTIVE_WINDOW_BG
-                elif is_active:
-                    sep = LOWER_RIGHT_TRIANGLE
-                    sep_bg = INACTIVE_BG
-                    sep_fg = ACTIVE_WINDOW_BG
-                elif is_prev_active:
-                    sep = LOWER_RIGHT_TRIANGLE
-                    sep_bg = ACTIVE_WINDOW_BG
                     sep_fg = INACTIVE_BG
                 else:
-                    sep = FORWARD_SLASH
+                    sep = SOFT_SEPARATOR_SYMBOL
                     sep_bg = INACTIVE_BG
-                    sep_fg = INACTIVE_FG
+                    sep_fg = WHITE_2
 
                 cells.insert(
-                    i*2, (window_fg, window_bg, f" {sup} {window.title} "))
-                cells.insert(
                     i*2, (sep_fg, sep_bg, sep))
+                cells.insert(
+                    i*2, (window_fg, window_bg, f"  {sup} {window.title}  "))
 
     # calculate leading spaces to separate tabs from right status
     right_status_length = 0
     for _, _, cell in cells:
         right_status_length += len(cell)
-
-    # calculate leading spaces
-    leading_spaces = 0
-    leading_spaces = screen.columns - screen.cursor.x - right_status_length
-
-    # draw leading spaces
-    if leading_spaces > 0:
-        screen.draw(" " * leading_spaces)
 
     # draw right status
     for fg, bg, cell in cells:
@@ -120,11 +109,7 @@ def _draw_right_status(screen: Screen) -> int:
     return screen.cursor.x
 
 
-SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
-ICON = "  "
-
-
-def _draw_left_status(
+def _draw_tab_status(
     draw_data: DrawData,
     screen: Screen,
     tab: TabBarData,
@@ -136,36 +121,18 @@ def _draw_left_status(
 ) -> int:
     # if screen.cursor.x >= screen.columns - right_status_length:
     #     return screen.cursor.x
-    tab_bg = screen.cursor.bg
-    tab_fg = screen.cursor.fg
-    default_bg = as_rgb(int(draw_data.default_bg))
-    if extra_data.next_tab:
-        next_tab_bg = as_rgb(draw_data.tab_bg(extra_data.next_tab))
-        needs_soft_separator = next_tab_bg == tab_bg
-    else:
-        next_tab_bg = default_bg
-        needs_soft_separator = False
-    # if screen.cursor.x <= len(ICON):
-    #     screen.cursor.x = len(ICON)
-    # screen.draw(" ")
-    screen.cursor.bg = tab_bg
-    draw_title(draw_data, screen, tab, index)
-    if not needs_soft_separator:
+
+    # tab_bg = screen.cursor.bg
+    # tab_fg = screen.cursor.fg
+    # default_bg = as_rgb(int(draw_data.default_bg))
+
+    # draw tab title
+    if tab.is_active:
+        screen.cursor.fg = WHITE_2
+        screen.cursor.bg = INACTIVE_BG
+        draw_title(draw_data, screen, tab, index)
         screen.draw(" ")
-        screen.cursor.fg = tab_bg
-        screen.cursor.bg = next_tab_bg
-        screen.draw(SEPARATOR_SYMBOL)
-    else:
-        prev_fg = screen.cursor.fg
-        if tab_bg == tab_fg:
-            screen.cursor.fg = default_bg
-        elif tab_bg != default_bg:
-            c1 = draw_data.inactive_bg.contrast(draw_data.default_bg)
-            c2 = draw_data.inactive_bg.contrast(draw_data.inactive_fg)
-            if c1 < c2:
-                screen.cursor.fg = default_bg
-        screen.cursor.fg = prev_fg  # separator_fg
-        screen.draw(" " + SOFT_SEPARATOR_SYMBOL)
+
     end = screen.cursor.x
     return end
 

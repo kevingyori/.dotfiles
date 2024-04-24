@@ -2254,8 +2254,8 @@ macos_option_as_alt yes
 
 
 # BEGIN_KITTY_THEME
-# 1984 Dark
-include current-theme.conf
+# Catppuccin-Mocha
+include dark-theme.conf
 # END_KITTY_THEME
 # background #000000
 # background_opacity 0.5
@@ -2272,6 +2272,7 @@ map cmd+p kitten meow/load_project.py --dir $HOME/dev/ --dir $HOME/
 map cmd+f kitten sessionizer.py --dir $HOME/dev/ --dir $HOME/
 map cmd+shift+d kitten sessionizer.py --shortcut $HOME/.dotfiles
 map cmd+shift+t kitten sessionizer.py --shortcut $HOME/dev/twitter-counter
+map cmd+shift+r kitten rename_window.py
 
 # map cmd+t new_window
 map cmd+t launch --cwd=current --type=window --location last
@@ -2308,14 +2309,9 @@ listen_on unix:/tmp/mykitty
 
 active_tab_font_style normal
 inactive_tab_font_style normal
-# tab_bar_margin_width 20.0
-# tab_bar_margin_height 11.0 11.0
 tab_bar_style custom
-# tab_bar_align center
 tab_separator " "
 tab_title_template " {sup.index} {title}{bell_symbol}{activity_symbol} "
-# active_tab_title_template "{fmt.bg.default}{fmt.fg._b4befe}{fmt.bg._b4befe}{fmt.fg._45475A} {sup.index} {title}{bell_symbol}{activity_symbol} {fmt.bg.default}{fmt.fg._b4befe}{fmt.bg.default}{fmt.fg.default}"
 active_tab_title_template " {sup.index} {title}{bell_symbol}{activity_symbol} "
-# tab_bar_background #1E1E2E
-# active_tab_foreground #1E1E2E
-# inactive_tab_background #1E1E2E
+
+startup_session startup.conf
