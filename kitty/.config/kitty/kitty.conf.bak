@@ -892,7 +892,7 @@ tab_bar_style custom
 #: The horizontal alignment of the tab bar, can be one of: left,
 #: center, right.
 
-tab_bar_min_tabs 1
+tab_bar_min_tabs 2
 
 #: The minimum number of tabs that must exist before the tab bar is
 #: shown.
@@ -2254,8 +2254,8 @@ macos_option_as_alt yes
 
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
-include dark-theme.conf
+# Kanagawa_dragon
+include current-theme.conf
 # END_KITTY_THEME
 # background #000000
 # background_opacity 0.5
@@ -2276,7 +2276,7 @@ map cmd+shift+r kitten rename_window.py
 
 # map cmd+t new_window
 map cmd+t launch --cwd=current --type=window --location last
-map cmd+w close_window
+map cmd+w close_window_with_confirmation ignore-shell
 map cmd+s toggle_layout tall
 enabled_layouts stack,tall
 
@@ -2285,10 +2285,10 @@ map cmd+shift+l resize_window wider
 map cmd+shift+j resize_window taller
 map cmd+shift+k resize_window shorter
 
-map ctrl+j kitten pass_keys.py bottom ctrl+j
-map ctrl+k kitten pass_keys.py top    ctrl+k
-map ctrl+h kitten pass_keys.py left   ctrl+h
-map ctrl+l kitten pass_keys.py right  ctrl+l
+# map ctrl+j kitten pass_keys.py bottom ctrl+j
+# map ctrl+k kitten pass_keys.py top    ctrl+k
+# map ctrl+h kitten pass_keys.py left   ctrl+h
+# map ctrl+l kitten pass_keys.py right  ctrl+l
 
 # go to last tab
 map ctrl+tab nth_window -1
@@ -2313,5 +2313,3 @@ tab_bar_style custom
 tab_separator " "
 tab_title_template " {sup.index} {title}{bell_symbol}{activity_symbol} "
 active_tab_title_template " {sup.index} {title}{bell_symbol}{activity_symbol} "
-
-startup_session startup.conf
