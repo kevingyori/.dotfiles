@@ -3,7 +3,8 @@
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | sed -e "s|$HOME|~|" | sed -e "s|//|/|" | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black)
+	# selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | sed -e "s|$HOME|~|" | sed -e "s|//|/|" | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black)
+	selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black)
 fi
 
 if [[ -z $selected ]]; then
@@ -27,7 +28,15 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
 fi
 
 if ! tmux has-session -t=$selected_name 2>/dev/null; then
-	tmux new-session -ds $selected_name -c $selected -n "editor"
+	tmux new-session -ds $selected_name -c $selected
+
+	# tmux rename-window -t $selected_name:1 "nvim"
+	tmux send-keys -t $selected_name:1 'lv .' C-m
+
+	tmux new-window -t $selected_name: -c $selected
+	# tmux send-keys -t $selected_name:2 'lazygit' C-m
+
+	tmux select-window -t $selected_name:1
 fi
 
 tmux switch-client -t $selected_name
