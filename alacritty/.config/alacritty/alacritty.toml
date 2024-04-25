@@ -1,3 +1,11 @@
+import = [
+  # uncomment the flavour you want below:
+  # "~/.config/alacritty/catppuccin-latte.toml",
+  # "~/.config/alacritty/catppuccin-frappe.toml"
+  # "~/.config/alacritty/catppuccin-macchiato.toml"
+  "~/.config/alacritty/catppuccin-mocha.toml",
+]
+
 live_config_reload = true
 # "window.dynamic_title" = false
 
@@ -14,43 +22,43 @@ unfocused_hollow = true
 TERM = "xterm-256color"
 
 [font]
-size = 18.0
+size = 16.5
 
-[font.bold]
-family = "FiraCode Nerd Font"
-style = "Bold"
+# [font.bold]
+# family = "FiraCode Nerd Font"
+# style = "Bold"
 
-[font.bold_italic]
-family = "FiraCode Nerd Font"
-style = "Bold Italic"
+# [font.bold_italic]
+# family = "FiraCode Nerd Font"
+# style = "Bold Italic"
 
-[font.italic]
-family = "FiraCode Nerd Font"
-style = "Italic"
+# [font.italic]
+# family = "FiraCode Nerd Font"
+# style = "Italic"
 
 [font.normal]
-family = "FiraCode Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
-[[keyboard.bindings]]
-chars = "\u0002c"
-key = "T"
-mods = "Command"
+# [[keyboard.bindings]]
+# chars = "\u0002c"
+# key = "T"
+# mods = "Command"
 
-[[keyboard.bindings]]
-chars = "\u0002x"
-key = "W"
-mods = "Command"
+# [[keyboard.bindings]]
+# chars = "\u0002x"
+# key = "W"
+# mods = "Command"
 
-[[keyboard.bindings]]
-chars = "\u0002L"
-key = "L"
-mods = "Command"
+# [[keyboard.bindings]]
+# chars = "\u0002L"
+# key = "L"
+# mods = "Command"
 
-[[keyboard.bindings]]
-chars = "\u0002\u0002"
-key = "Tab"
-mods = "Control"
+# [[keyboard.bindings]]
+# chars = "\u0002\u0002"
+# key = "Tab"
+# mods = "Control"
 
 # [mouse.hints]
 # modifiers = "Command"
