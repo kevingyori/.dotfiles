@@ -1,4 +1,4 @@
-function l --wraps=ls --wraps='lsd -la' --description 'alias ll=lsd -la'
-    lsd -la $argv
+function l --wraps=ls --wraps='lsd -la' --description 'alias l=eza -la --icons'
+    eza -la --icons $argv
 
 end
