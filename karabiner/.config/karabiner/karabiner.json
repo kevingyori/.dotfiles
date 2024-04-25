@@ -217,27 +217,6 @@
                   }
                 ],
                 "from": {
-                  "key_code": "9",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -a 'Visual Studio Code.app'"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "superduper-mode",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "from": {
                   "key_code": "u",
                   "modifiers": {
                     "optional": ["any"]
@@ -259,7 +238,7 @@
                   }
                 ],
                 "from": {
-                  "key_code": "g",
+                  "key_code": "9",
                   "modifiers": {
                     "optional": ["any"]
                   }
