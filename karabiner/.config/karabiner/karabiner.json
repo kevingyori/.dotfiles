@@ -203,7 +203,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a 'Thorium.app'"
+                    "shell_command": "open -a 'Brave Browser.app'"
                   }
                 ],
                 "type": "basic"
@@ -1558,4 +1558,3 @@
     }
   ]
 }
-
