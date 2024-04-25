@@ -75,6 +75,13 @@ return {
     },
   },
   {
+    -- nord
+    {
+      "nordtheme/vim",
+      priority = 1000,
+    },
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "catppuccin",
