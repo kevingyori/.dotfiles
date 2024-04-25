@@ -9,5 +9,5 @@ vim.o.guicursor = table.concat({
   "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100",
 }, ",")
 
-vim.g.kitty_navigator_enable_stack_layout = 1
+-- vim.g.kitty_navigator_enable_stack_layout = 1
 -- vim.g.kitty_navigator_no_mappings = 1

@@ -15,8 +15,3 @@ vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", { desc = "Hover Do
 -- )
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
--- vim.keymap.set("n", "C-h", "<CMD>KittyNavigateLeft<CR>", { desc = "Navigate left", silent = true })
--- vim.keymap.set("n", "C-j", "<CMD>KittyNavigateDown<CR>", { desc = "Navigate down", silent = true })
--- vim.keymap.set("n", "C-k", "<CMD>KittyNavigateUp<CR>", { desc = "Navigate up", silent = true })
--- vim.keymap.set("n", "C-l", "<CMD>KittyNavigateRight<CR>", { desc = "Navigate right", silent = true })
