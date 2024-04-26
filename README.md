@@ -23,10 +23,10 @@ stow nvim # Just my nvim config
 | OS           | MacOS / Fedora Asahi Remix |
 | ------------ | -------------------------- |
 | **WM**       | Default / Sway             |
-| **Terminal** | Kitty                      |
+| **Terminal** | Kitty + tmux               |
 | **Shell**    | fish                       |
 | **Editor**   | Neovim - LazyVim           |
-| **Browser**  | Arc / Firefox              |
+| **Browser**  | Brave / Firefox            |
 
 > I stopped using tiling WMs on MacOS for now, they were causing more issues than they were solving
 
@@ -54,7 +54,9 @@ I usually revisit this every few months. I really want this to work.
 
 ### Terminal
 
-Kitty is fast, and has everything I need from a terminal emulator and multiplexer. It has replaced `tmux` for me - with a [custom kitten](https://github.com/kevingyori/.dotfiles/blob/main/kitty/.config/kitty/sessionizer.py). I love tmux, but I found Kitty easier to deal with, with no downsides.
+Kitty is fast, and has everything I could ever need from a terminal emulator. I tried replacing `tmux` with it - with a [custom kitten](https://github.com/kevingyori/.dotfiles/blob/main/kitty/.config/kitty/sessionizer.py). But in the end I just couldn't leave `tmux` behind.
+
+Kitty might have a bit too many features for me, so I'm planning on switching to Alacritty soon.
 
 ### Shell
 
@@ -68,6 +70,6 @@ Would love to use my own config, but I couldn't get the lsp to work the way I wa
 
 ### Browser
 
-Arc is awesome, I love the UI & UX.
+Arc is awesome, I love the UI. But it's a bit too slow for me. I switched to Brave.
 
 On linux I use Firefox for browsing and Chromium for web dev.
