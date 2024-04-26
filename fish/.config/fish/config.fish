@@ -5,9 +5,9 @@ end
 set fish_greeting
 
 # pnpm
-set -gx PNPM_HOME /Users/kevingyori/Library/pnpm
+set -gx PNPM_HOME "/Users/kevingyori/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 
