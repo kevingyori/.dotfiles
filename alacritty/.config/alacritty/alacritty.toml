@@ -41,7 +41,7 @@ family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 # [[keyboard.bindings]]
-# chars = "\u0002c"
+# chars = "\U001b"
 # key = "T"
 # mods = "Command"
 
