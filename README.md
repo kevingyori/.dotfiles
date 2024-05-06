@@ -22,11 +22,11 @@ stow nvim # Just my nvim config
 
 | OS           | MacOS / Fedora Asahi Remix |
 | ------------ | -------------------------- |
-| **WM**       | Default / Sway             |
+| **WM**       | AeroSpace / Sway           |
 | **Terminal** | Kitty + tmux               |
 | **Shell**    | fish                       |
 | **Editor**   | Neovim - LazyVim           |
-| **Browser**  | Brave / Firefox            |
+| **Browser**  | Brave + Chrome             |
 
 > I stopped using tiling WMs on MacOS for now, they were causing more issues than they were solving
 
@@ -48,9 +48,7 @@ I like using sway with an autotiler script for it's simplicity. It was easy to s
 
 #### Nothing on MacOS
 
-I've tried tiling WMs (Amethyst, yabai, and AeroSpace), but I'm not using them anymore. You can't change the default window manager on MacOS and all of these solutions were just a bit too janky for me.
-
-I usually revisit this every few months. I really want this to work.
+I'm currently trying out AeroSpace.
 
 ### Terminal
 
@@ -70,6 +68,4 @@ Would love to use my own config, but I couldn't get the lsp to work the way I wa
 
 ### Browser
 
-Arc is awesome, I love the UI. But it's a bit too slow for me. I switched to Brave.
-
-On linux I use Firefox for browsing and Chromium for web dev.
+I use Brave for browsing and Chrome for web dev testing.
