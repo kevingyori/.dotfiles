@@ -1,36 +1,45 @@
 # focus space
-hyper - j : yabai -m space --focus 1;
-hyper - k : yabai -m space --focus 2;
-hyper - l : yabai -m space --focus 3;
-hyper - 0x29 : yabai -m space --focus 4;
-hyper - 0x27 : yabai -m space --focus 5;
+alt - y : yabai -m space --focus 1;
+alt - u : yabai -m space --focus 2;
+alt - i : yabai -m space --focus 3;
+alt - o : yabai -m space --focus 4;
+alt - p : yabai -m space --focus 5;
 
 # focus window
-# hyper - h : yabai -m window --focus west
-# hyper - j : yabai -m window --focus south
-# hyper - k : yabai -m window --focus north
-# hyper - l : yabai -m window --focus east
-hyper - b : yabai -m window --focus prev
-hyper - n : yabai -m window --focus next
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
 
 # move window to space
-hyper - 1 : yabai -m window --space 1
-hyper - 2 : yabai -m window --space 2
-hyper - 3 : yabai -m window --space 3
-hyper - 4 : yabai -m window --space 4
-hyper - 5 : yabai -m window --space 5
+alt - 1 : yabai -m window --space 1
+alt - 2 : yabai -m window --space 2
+alt - 3 : yabai -m window --space 3
+alt - 4 : yabai -m window --space 4
+alt - 5 : yabai -m window --space 5
 
 # move window
-hyper - y : yabai -m window --warp west
-hyper - u : yabai -m window --warp south
-hyper - i : yabai -m window --warp north
-hyper - o : yabai -m window --warp east
+alt - y : yabai -m window --warp west
+alt - u : yabai -m window --warp south
+alt - i : yabai -m window --warp north
+alt - o : yabai -m window --warp east
+
+alt - shift - y : yabai -m window --space 1;
+alt - shift - u : yabai -m window --space 2;
+alt - shift - i : yabai -m window --space 3;
+alt - shift - o : yabai -m window --space 4;
+alt - shift - p : yabai -m window --space 5;
 
 # launch kitty
-hyper - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 
 # toggle float
-hyper - space : yabai -m window --toggle float
-hyper - f : yabai -m window --toggle zoom-fullscreen
-hyper - d : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+alt - space : yabai -m window --toggle float
+alt - f : yabai -m window --toggle zoom-fullscreen
+alt - d : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
 
+# stop/start/restart yabai
+ctrl + alt - q : yabai --stop-service
+ctrl + alt - s : yabai --start-service
+ctrl + alt - r : yabai --restart-service
+alt - shift - r : skhd --restart-service

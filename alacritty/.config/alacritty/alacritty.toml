@@ -4,6 +4,7 @@ import = [
   # "~/.config/alacritty/catppuccin-frappe.toml"
   # "~/.config/alacritty/catppuccin-macchiato.toml"
   "~/.config/alacritty/catppuccin-mocha.toml",
+  # "~/.config/alacritty/github_light.toml",
 ]
 
 live_config_reload = true
@@ -41,7 +42,7 @@ family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 # [[keyboard.bindings]]
-# chars = "\U001b"
+# chars = "\e[27;5;59~"
 # key = "T"
 # mods = "Command"
 
@@ -72,7 +73,7 @@ multiplier = 3
 
 [selection]
 save_to_clipboard = true
-semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+# semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [window]
 decorations = "buttonless"

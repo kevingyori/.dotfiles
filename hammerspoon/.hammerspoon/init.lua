@@ -9,8 +9,8 @@ hs.alert.show("Config loaded")
 
 -- Paste anywhere with cmd+alt+V
 hs.hotkey.bind({ "cmd", "alt" }, "V", function()
-  hs.eventtap.keyStrokes(hs.pasteboard.getContents())
+	hs.eventtap.keyStrokes(hs.pasteboard.getContents())
 end)
 
 -- hyper key
-require('keyboard.hyper')
+require("keyboard.hyper")
