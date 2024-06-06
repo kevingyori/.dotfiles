@@ -22,7 +22,7 @@ return {
 		-- See `:help telescope` and `:help telescope.setup()`
 		require('telescope').setup {
 			defaults = {
-				file_ignore_patterns = { 'node_modules', '.git', 'lvim' },
+				file_ignore_patterns = { 'node_modules', '.git' },
 				mappings = {
 					i = {
 						['<C-u>'] = false,
@@ -38,6 +38,12 @@ return {
 					hidden = true,
 				},
 				oldfiles = {
+					hidden = true,
+				},
+				grep_string = {
+					hidden = true,
+				},
+				git_files = {
 					hidden = true,
 				},
 			},

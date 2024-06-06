@@ -11,6 +11,7 @@
 # font_family        CaskaydiaCove Nerd Font
 # font_family      FiraCode Nerd Font
 font_family      JetBrains Mono
+# font_family      Cascadia Code
 # bold_font        MonaspiceNe Nerd Font Mono
 # italic_font      MonaspiceAr Nerd Font Mono Italic
 # bold_italic_font MonaspiceAr Nerd Font Mono Bold Italic
@@ -28,7 +29,7 @@ font_family      JetBrains Mono
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_size 17
+font_size 18
 
 #: Font size (in pts)
 
@@ -2254,7 +2255,7 @@ macos_option_as_alt yes
 
 
 # BEGIN_KITTY_THEME
-# Doom One Light
+# GitHub Dark
 include current-theme.conf
 # END_KITTY_THEME
 # background #000000

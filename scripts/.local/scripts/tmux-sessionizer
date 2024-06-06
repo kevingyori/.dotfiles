@@ -4,7 +4,7 @@ if [[ $# -eq 1 ]]; then
 	selected=$1
 else
 	# selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | sed -e "s|$HOME|~|" | sed -e "s|//|/|" | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black)
-	selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=light,fg:black,info:black,hl:red,hl+:red,pointer:bright-red)
+	selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=light,fg:white,info:black,hl:red,hl+:red,pointer:bright-red)
 fi
 
 if [[ -z $selected ]]; then

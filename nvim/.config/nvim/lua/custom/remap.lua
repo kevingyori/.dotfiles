@@ -73,3 +73,6 @@ vim.keymap.set('n', '<leader>o', '<cmd>e#<cr>', { desc = 'Alternate file' })
 vim.keymap.set('n', '<leader>q', '<cmd>lua require("telescope.builtin").quickfix()<cr>', { desc = 'Quickfix' })
 vim.keymap.set('n', '<leader>cj', '<cmd>cprev<cr>', { desc = 'Previous quickfix' })
 vim.keymap.set('n', '<leader>ck', '<cmd>cnext<cr>', { desc = 'Next quickfix' })
+
+-- oil
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
