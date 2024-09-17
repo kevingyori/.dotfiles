@@ -1,17 +1,25 @@
 return {
-  { "typicode/bg.nvim", lazy = false },
+  -- { "typicode/bg.nvim", lazy = false },
   {
-    { "projekt0n/github-nvim-theme", lazy = "false" },
-    "projekt0n/github-nvim-theme",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require("github-theme").setup({
-        -- ...
-      })
-
-      -- vim.cmd("colorscheme github_dark")
-    end,
+    {
+      "ellisonleao/gruvbox.nvim",
+      priority = 1000,
+      config = true,
+      opts = {
+        transparent_mode = true,
+      },
+    },
+    --   { "projekt0n/github-nvim-theme", lazy = "false" },
+    --   "projekt0n/github-nvim-theme",
+    --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    --   priority = 1000, -- make sure to load this before all the other start plugins
+    --   config = function()
+    --     require("github-theme").setup({
+    --       -- ...
+    --     })
+    --
+    --     -- vim.cmd("colorscheme github_dark")
+    --   end,
   },
   -- {
   --   "olivercederborg/poimandres.nvim",
@@ -31,10 +39,10 @@ return {
   --   end,
   -- },
 
-  {
-    "mcchrish/zenbones.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
-  },
+  -- {
+  --   "mcchrish/zenbones.nvim",
+  --   dependencies = { "rktjmp/lush.nvim" },
+  -- },
   -- {
   --   "catppuccin/nvim",
   --   name = "catppuccin",
@@ -120,7 +128,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "github_light_high_contrast",
+      colorscheme = "gruvbox",
     },
   },
 }
