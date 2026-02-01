@@ -1,6 +1,7 @@
 # macos-titlebar-style=hidden
 # theme = flexoki-dark
 # theme = flexoki-dark,light:flexoki-light
+theme = Vesper
 
 font-size = 16
 
