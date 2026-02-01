@@ -4,13 +4,15 @@ alias v='nvim'
 alias nv='nvim'
 alias vv='v .'
 alias ls='ls --color=auto'
-alias ll='lsd -la'
+alias l='eza -la --icons'
+alias ll='eza -la --icons'
 alias la='ls -la'
 # alias cd='z'
 alias denowatch='deno run --allow-all --watch'
 alias bench='~/.zsh-bench/zsh-bench'
 alias hbench='~/.zsh-bench/human-bench'
 alias pnpx='pnpm dlx'
+alias lg='lazygit'
 # alias code='code-insiders'
 # alias dev='find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf'
 # alias dev='fd --type d --hidden --exclude .git --max-depth 1 | fzf-tmux -p | xargs nvim'
@@ -69,6 +71,130 @@ gch() {
     --marker='♡' \
     --header='CTRL-c or ESC to quit' \
     --color='dark,fg:magenta')
+}
+
+# Fish parity helpers
+bwu() {
+  export BW_SESSION="$(bw unlock --raw "$1")"
+}
+
+dark() {
+  kitty @ --to="$KITTY_LISTEN_ON" kitten themes Github Dark \
+    && kitty @ --to="$KITTY_LISTEN_ON" set-colors -a ~/.config/kitty/dark-theme.conf \
+    && nvim --server /tmp/nvim.pipe --remote-send ':set background=dark<cr>'
+}
+
+light() {
+  kitty @ --to="$KITTY_LISTEN_ON" kitten themes Github Light \
+    && kitty @ --to="$KITTY_LISTEN_ON" set-colors -a ~/.config/kitty/light-theme.conf \
+    && nvim --server /tmp/nvim.pipe --remote-send ':set background=light<cr>'
+}
+
+f() {
+  local target
+  target="$(fd --type d --min-depth 1 --max-depth 1 --hidden . "$HOME/dev" "$HOME/" | fzf)" || return
+  [[ -n "$target" ]] && cd "$target"
+}
+
+kv() {
+  NVIM_APPNAME=kickstart nvim --listen /tmp/nvim.pipe "$@"
+}
+
+lv() {
+  NVIM_APPNAME=LazyVim nvim --listen /tmp/nvim.pipe "$@"
+}
+
+nvim-lazy() {
+  NVIM_APPNAME=LazyVim nvim "$@"
+}
+
+un-quarantine() {
+  ~/.local/scripts/un-quarantine "$@"
+}
+
+gbage() {
+  git for-each-ref --sort=committerdate refs/heads/ \
+    --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))"
+}
+
+gbda() {
+  git branch --merged | \
+    command grep -vE '^\*|^\+|^\s*(master|main|develop)\s*$' | \
+    command xargs -r -n 1 git branch -d
+
+  local default_branch
+  default_branch="$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's@^origin/@@')"
+  if [[ -z "$default_branch" ]]; then
+    for branch in main master develop; do
+      if git show-ref --verify --quiet "refs/heads/$branch"; then
+        default_branch="$branch"
+        break
+      fi
+    done
+  fi
+  [[ -z "$default_branch" ]] && return 0
+
+  git for-each-ref refs/heads/ --format="%(refname:short)" | while read -r branch; do
+    local merge_base
+    merge_base="$(git merge-base "$default_branch" "$branch" 2>/dev/null)" || continue
+    if git cherry "$default_branch" "$(git commit-tree "$(git rev-parse "$branch^{tree}")" -p "$merge_base" -m _)" | command grep -q '^-'; then
+      git branch -D "$branch"
+    fi
+  done
+}
+
+gdv() {
+  git diff -w "$@" | view -
+}
+
+gignored() {
+  git ls-files -v | grep "^[[:lower:]]" "$@"
+}
+
+glp() {
+  local format="$1"
+  [[ -n "$format" ]] && git log --pretty="$format"
+}
+
+grename() {
+  if [[ $# -ne 2 ]]; then
+    echo "Usage: grename old_branch new_branch"
+    return 1
+  fi
+  local old_branch="$1"
+  local new_branch="$2"
+  git branch -m "$old_branch" "$new_branch"
+  git push origin ":$old_branch"
+  git push --set-upstream origin "$new_branch"
+}
+
+grt() {
+  cd "$(git rev-parse --show-toplevel 2>/dev/null || echo ".")"
+}
+
+gtest() {
+  git stash push -q --keep-index --include-untracked || return
+  "$@"
+  local cmdstatus=$?
+  git reset -q
+  git restore .
+  git stash pop -q --index || return $?
+  return $cmdstatus
+}
+
+gtl() {
+  local prefix="$1"
+  git tag --sort=-v:refname -n -l "${prefix}*"
+}
+
+gunwip() {
+  git log -n 1 --pretty=%B | command grep -q -- "--wip--" && git reset HEAD~1
+}
+
+gwip() {
+  git add -A
+  git rm $(git ls-files --deleted) 2>/dev/null
+  git commit -m "--wip--" --no-verify
 }
 
 # dev() {

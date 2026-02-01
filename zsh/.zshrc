@@ -97,7 +97,8 @@ unfunction zcompile-many
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
 # Partial completion suggestions
-zstyle ':completion:*' list-suffixeszstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' list-suffixes
+zstyle ':completion:*' expand prefix suffix
 
 # Completion menu select highlighting
 zstyle ':completion:*' menu select
@@ -111,7 +112,7 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # Load plugins
 source ~/.zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source ~/.zsh-plugins/zsh-autopair/zsh-autopair.plugin.zsh
 source ~/.zsh-plugins/powerlevel10k/powerlevel10k.zsh-theme
@@ -169,6 +170,11 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17.0.6)
 # zoxide setup
 eval "$(zoxide init zsh)"
 
+# rbenv
+if command -v rbenv >/dev/null; then
+  eval "$(rbenv init - zsh --no-rehash)"
+fi
+
 # Put the line below in ~/.zshrc:
 
   # eval "$(jump shell zsh)"
@@ -195,8 +201,6 @@ eval "$(zoxide init zsh)"
 
 # export PATH=/Users/kevingyori/.local/bin:$PATH
 
-export EDITOR=vim
-
 # pnpm
 export PNPM_HOME="/Users/kevingyori/Library/pnpm"
 case ":$PATH:" in
@@ -221,4 +225,3 @@ esac
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/kevingyori/.lmstudio/bin"
 # End of LM Studio CLI section
-
