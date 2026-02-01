@@ -113,6 +113,9 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # Load plugins
 source ~/.zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Faster vi mode switching (KEYTIMEOUT is in 1/100s)
+export KEYTIMEOUT=1
+ZVM_KEYTIMEOUT=0.1
 source ~/.zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source ~/.zsh-plugins/zsh-autopair/zsh-autopair.plugin.zsh
 source ~/.zsh-plugins/powerlevel10k/powerlevel10k.zsh-theme
