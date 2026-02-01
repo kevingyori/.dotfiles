@@ -1,2 +1,9 @@
 kitty/.config/kitty/history
 espanso/Library/Application Support/espanso/match/email.yml
+.DS_Store
+startuptime.log
+kitty/.config/kitty/kitty.conf.bak
+karabiner/.config/karabiner/automatic_backups/
+nvim/.config/nvim-bk/
+nvim/.config/nvim-bk2/
+scripts/.local/scripts/hosts-manager-project/hosts-manager

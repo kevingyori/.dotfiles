@@ -22,5 +22,12 @@ matches:
         type: shell
         params:
           cmd: "echo 'Hello from your shell'"
+  - trigger: ":paste"
+    replace: "{{clipb}}"
+    vars:
+      - name: "clipb"
+        type: "clipboard"
+  - trigger: ":phone"
+    replace: "07907484298"
 
   # And much more! For more information, visit the docs: https://espanso.org/docs/

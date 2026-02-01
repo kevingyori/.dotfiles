@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"time"
 )
 
 const (
@@ -14,11 +15,14 @@ const (
 	StartBlock       = "# --- HOSTS_MANAGER_BLOCK_START ---"
 	EndBlock         = "# --- HOSTS_MANAGER_BLOCK_END ---"
 	IPToBlock        = "127.0.0.1"
+	SudoTimeout      = 5 * time.Minute // Default sudo timeout
 )
 
 // HostsManager handles reading and writing to the hosts file
 type HostsManager struct {
-	filePath string
+	filePath        string
+	lastSudoRefresh time.Time
+	testMode        bool // For testing without sudo
 }
 
 // NewHostsManager creates a new hosts manager
@@ -28,7 +32,53 @@ func NewHostsManager(filePath string) *HostsManager {
 	}
 	return &HostsManager{
 		filePath: filePath,
+		testMode: false,
 	}
+}
+
+// SetTestMode enables test mode to avoid sudo operations
+func (hm *HostsManager) SetTestMode(enabled bool) {
+	hm.testMode = enabled
+}
+
+// SetInitialSudoRefresh sets the initial sudo refresh time
+func (hm *HostsManager) SetInitialSudoRefresh(t time.Time) {
+	hm.lastSudoRefresh = t
+}
+
+// refreshSudoCredentials refreshes sudo credentials if needed
+func (hm *HostsManager) refreshSudoCredentials() error {
+	// Skip sudo operations in test mode
+	if hm.testMode {
+		return nil
+	}
+
+	// Check if we need to refresh (if more than 4 minutes have passed since last refresh)
+	if time.Since(hm.lastSudoRefresh) < SudoTimeout-time.Minute {
+		return nil // Still valid
+	}
+
+	// Try to refresh sudo credentials
+	cmd := exec.Command("sudo", "-n", "-v")
+	if err := cmd.Run(); err != nil {
+		// Credentials expired, need interactive refresh
+		fmt.Println("Sudo credentials expired. Please re-enter your password:")
+		cmd = exec.Command("sudo", "-v")
+		cmd.Stdin = os.Stdin
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		if err := cmd.Run(); err != nil {
+			return fmt.Errorf("failed to refresh sudo credentials: %w", err)
+		}
+	}
+
+	hm.lastSudoRefresh = time.Now()
+	return nil
+}
+
+// needsCredentialRefresh returns true if credentials need to be refreshed
+func (hm *HostsManager) needsCredentialRefresh() bool {
+	return time.Since(hm.lastSudoRefresh) >= SudoTimeout-time.Minute
 }
 
 // LoadDomains reads domains from the hosts file
@@ -94,6 +144,11 @@ func (hm *HostsManager) LoadDomains() ([]Domain, error) {
 
 // SaveDomains writes domains to the hosts file
 func (hm *HostsManager) SaveDomains(domains []Domain) error {
+	// Refresh sudo credentials before performing operations that require sudo
+	if err := hm.refreshSudoCredentials(); err != nil {
+		return fmt.Errorf("failed to refresh sudo credentials: %w", err)
+	}
+
 	newBlock := hm.generateManagedBlock(domains)
 
 	content, err := os.ReadFile(hm.filePath)
@@ -124,7 +179,25 @@ func (hm *HostsManager) SaveDomains(domains []Domain) error {
 
 // createManagedBlock creates the initial managed block in the hosts file
 func (hm *HostsManager) createManagedBlock() error {
+	// Refresh sudo credentials before performing operations that require sudo
+	if err := hm.refreshSudoCredentials(); err != nil {
+		return fmt.Errorf("failed to refresh sudo credentials: %w", err)
+	}
+
 	content := fmt.Sprintf("\n%s\n%s\n", StartBlock, EndBlock)
+
+	// In test mode, write directly to file without sudo
+	if hm.testMode {
+		file, err := os.OpenFile(hm.filePath, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+		if err != nil {
+			return fmt.Errorf("failed to open file in test mode: %w", err)
+		}
+		defer file.Close()
+
+		_, err = file.WriteString(content)
+		return err
+	}
+
 	cmd := exec.Command("sudo", "tee", "-a", hm.filePath)
 	cmd.Stdin = strings.NewReader(content)
 	return cmd.Run()
@@ -151,6 +224,11 @@ func (hm *HostsManager) generateManagedBlock(domains []Domain) string {
 
 // writeToFile writes content to the hosts file using sudo
 func (hm *HostsManager) writeToFile(content []byte) error {
+	// In test mode, write directly to file without sudo
+	if hm.testMode {
+		return os.WriteFile(hm.filePath, content, 0644)
+	}
+
 	cmd := exec.Command("sudo", "tee", hm.filePath)
 	cmd.Stdin = bytes.NewReader(content)
 
@@ -166,6 +244,11 @@ func (hm *HostsManager) writeToFile(content []byte) error {
 
 // flushDNSCache flushes the system DNS cache
 func (hm *HostsManager) flushDNSCache() {
+	// Skip DNS cache flushing in test mode
+	if hm.testMode {
+		return
+	}
+
 	// macOS DNS cache flush commands
 	exec.Command("sudo", "dscacheutil", "-flushcache").Run()
 	exec.Command("sudo", "killall", "-HUP", "mDNSResponder").Run()

@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"time"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -36,6 +37,8 @@ type Model struct {
 
 func initialModel() Model {
 	hostsManager := NewHostsManager("")
+	// Set initial sudo refresh time to now since we just validated credentials
+	hostsManager.SetInitialSudoRefresh(time.Now())
 	return Model{
 		ui: NewUIModel(hostsManager),
 	}

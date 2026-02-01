@@ -71,6 +71,9 @@ if [[ ! -e ~/.zsh-plugins/fzf ]]; then
   # zcompile-many ~/{.fzf.zsh}
 fi
 
+
+export PATH="$HOME/.config/emacs/bin:$PATH"
+
 # Activate Powerlevel10k Instant Prompt.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -192,6 +195,7 @@ eval "$(zoxide init zsh)"
 
 # export PATH=/Users/kevingyori/.local/bin:$PATH
 
+export EDITOR=vim
 
 # pnpm
 export PNPM_HOME="/Users/kevingyori/Library/pnpm"
@@ -210,3 +214,11 @@ esac
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+
+. "$HOME/.local/bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/kevingyori/.lmstudio/bin"
+# End of LM Studio CLI section
+

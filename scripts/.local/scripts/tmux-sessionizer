@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-	selected=$1
+  selected=$1
 else
-	# selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | sed -e "s|$HOME|~|" | sed -e "s|//|/|" | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black)
-	selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=light,fg:white,info:black,hl:red,hl+:red,pointer:bright-red)
+  # selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | sed -e "s|$HOME|~|" | sed -e "s|//|/|" | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:white,info:white,bg+:black,hl:cyan,hl+:cyan,pointer:yellow,border:black)
+  selected=$(find ~/dev ~/ -mindepth 1 -maxdepth 1 -type d | fzf --bind=enter:accept,ctrl-j:down,ctrl-k:up --margin=2%,2%,2%,2% --layout=reverse-list --border=none --info=inline --pointer=→ --color=dark,fg:7,hl:1,fg+:7,bg+:0,hl+:1,pointer:4,info:2,border:0)
 fi
 
 if [[ -z $selected ]]; then
-	exit 0
+  exit 0
 fi
 
 selected_name=$(basename "$selected" | tr . _)
@@ -17,26 +17,26 @@ selected_name=$(basename "$selected" | tr . _)
 first_char=$(echo $selected_name | cut -c1)
 
 if [[ $first_char == "_" ]]; then
-	selected_name=$(echo $selected_name | cut -c2-)
+  selected_name=$(echo $selected_name | cut -c2-)
 fi
 
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-	tmux new-session -s $selected_name -c $selected
-	exit 0
+  tmux new-session -s $selected_name -c $selected
+  exit 0
 fi
 
 if ! tmux has-session -t=$selected_name 2>/dev/null; then
-	tmux new-session -ds $selected_name -c $selected
+  tmux new-session -ds $selected_name -c $selected
 
-	# tmux rename-window -t $selected_name:1 "nvim"
-	tmux send-keys -t $selected_name:1 'lv .' C-m
+  # tmux rename-window -t $selected_name:1 "nvim"
+  tmux send-keys -t $selected_name:1 'nv .' C-m
 
-	tmux new-window -t $selected_name: -c $selected
-	# tmux send-keys -t $selected_name:2 'lazygit' C-m
+  tmux new-window -t $selected_name: -c $selected
+  # tmux send-keys -t $selected_name:2 'lazygit' C-m
 
-	tmux select-window -t $selected_name:1
+  tmux select-window -t $selected_name:1
 fi
 
 tmux switch-client -t $selected_name

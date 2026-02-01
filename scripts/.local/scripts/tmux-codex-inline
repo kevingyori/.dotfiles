@@ -1,0 +1,17 @@
+#!/bin/sh
+
+printf "codex> "
+IFS= read -r input
+if [ -z "$input" ]; then
+  exit 0
+fi
+
+prompt="Return exactly ONE line, plain text only (no backticks, no markdown): $input"
+output=$(
+  codex exec -m gpt-5.1-codex-mini --color never \
+    -c hide_agent_reasoning=true \
+    "$prompt" 2>/dev/null | tr -d '\r' | head -n 1
+)
+
+tmux set-buffer -- "$output"
+tmux paste-buffer -d -p

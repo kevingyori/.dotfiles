@@ -2,6 +2,8 @@ hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
 hs.alert.show("Config loaded")
 
+hs.loadSpoon("Jiggler")
+
 -- hs.loadSpoon("SpoonInstall")
 
 -- hs.loadSpoon("Caffeine")
@@ -13,4 +15,4 @@ hs.hotkey.bind({ "cmd", "alt" }, "V", function()
 end)
 
 -- hyper key
-require("keyboard.hyper")
+-- require("keyboard.hyper")

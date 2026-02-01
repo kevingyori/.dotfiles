@@ -11,10 +11,39 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
+###-begin-pnpm-completion-###
+function _pnpm_completion
+    set cmd (commandline -o)
+    set cursor (commandline -C)
+    set words (count $cmd)
+
+    set completions (eval env DEBUG=\"" \"" COMP_CWORD=\""$words\"" COMP_LINE=\""$cmd \"" COMP_POINT=\""$cursor\"" SHELL=fish pnpm completion-server -- $cmd)
+
+    if [ "$completions" = __tabtab_complete_files__ ]
+        set -l matches (commandline -ct)*
+        if [ -n "$matches" ]
+            __fish_complete_path (commandline -ct)
+        end
+    else
+        for completion in $completions
+            echo -e $completion
+        end
+    end
+end
+
+complete -f -d pnpm -c pnpm -a "(_pnpm_completion)"
+###-end-pnpm-completion-###
+
+
+
 # bun start
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # bun end
+
+set -gx EDITOR nvim
+
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Fix cursor shape in the shell
 # Only run this in interactive shells
@@ -51,3 +80,14 @@ starship init fish | source
 
 # Go
 set -x PATH /Users/kevingyori/go/bin "$PATH"
+
+# Added by `rbenv init` on Sun  2 Feb 2025 19:36:23 GMT
+status --is-interactive; and rbenv init - --no-rehash fish | source
+
+# Added by Windsurf
+fish_add_path /Users/kevingyori/.codeium/windsurf/bin
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/kevingyori/.lmstudio/bin
+# End of LM Studio CLI section
+
