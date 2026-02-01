@@ -1,0 +1,23 @@
+# macos-titlebar-style=hidden
+# theme = flexoki-dark
+# theme = flexoki-dark,light:flexoki-light
+
+font-size = 16
+
+keybind = super+t=text:\x01c
+keybind = super+w=text:\x01x
+keybind = super+f=text:\x01f
+keybind = control+tab=text:\x01p
+
+keybind = super+digit_1=text:\x011
+keybind = super+digit_2=text:\x012
+keybind = super+digit_3=text:\x013
+keybind = super+digit_4=text:\x014
+keybind = super+digit_5=text:\x015
+keybind = super+digit_6=text:\x016
+
+keybind = super+k=text:\x1b[24~
+
+window-decoration = none
+auto-update-channel = tip
+
