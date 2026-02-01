@@ -116,7 +116,7 @@ source ~/.zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source ~/.zsh-plugins/zsh-autopair/zsh-autopair.plugin.zsh
 source ~/.zsh-plugins/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.zsh-plugins/.p10k.zsh
+source ~/.dotfiles/zsh/.p10k.zsh
 
 # FZF fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
