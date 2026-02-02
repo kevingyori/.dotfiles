@@ -91,3 +91,6 @@ fish_add_path /Users/kevingyori/.codeium/windsurf/bin
 set -gx PATH $PATH /Users/kevingyori/.lmstudio/bin
 # End of LM Studio CLI section
 
+
+# Added by Antigravity
+fish_add_path /Users/kevingyori/.antigravity/antigravity/bin
