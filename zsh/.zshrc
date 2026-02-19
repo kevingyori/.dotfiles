@@ -80,12 +80,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # brew completions
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
+if type brew &>/dev/null; then
+  if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
+  elif [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
+    FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
+  elif [[ -d /usr/local/share/zsh/site-functions ]]; then
+    FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
+  else
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  fi
 fi
 
 # Enable the "new" completion system (compsys).
