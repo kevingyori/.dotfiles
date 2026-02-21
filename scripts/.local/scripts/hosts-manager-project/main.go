@@ -21,6 +21,7 @@ var (
 	helpStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
 	errorStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("196"))
 	statusStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("82"))
+	dirtyStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("208")).Bold(true)
 	quitStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("82")).Bold(true)
 	dialogBox     = lipgloss.NewStyle().Border(lipgloss.RoundedBorder()).
 			BorderForeground(lipgloss.Color("212")).Padding(1, 1)
@@ -61,6 +62,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if msg.err != nil {
 			m.ui.SetError(msg.err)
 		} else {
+			m.ui.SetClean()
 			m.ui.SetStatus("Changes saved and DNS flushed!")
 		}
 		return m, nil
@@ -224,7 +226,11 @@ func (m Model) renderDeletingView() string {
 
 func (m Model) renderMainView() string {
 	var b strings.Builder
-	b.WriteString(titleStyle.Render("Hosts File Manager") + "\n\n")
+	title := titleStyle.Render("Hosts File Manager")
+	if m.ui.IsDirty() {
+		title += dirtyStyle.Render(" [Unsaved]")
+	}
+	b.WriteString(title + "\n\n")
 
 	currentDomains := m.ui.GetCurrentDomains()
 	start, end := m.ui.paginator.GetSliceBounds(len(currentDomains))
