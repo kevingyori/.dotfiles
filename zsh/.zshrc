@@ -171,7 +171,30 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # java
 # export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0)
-export JAVA_HOME=$(/usr/libexec/java_home -v 17.0.6)
+# Optimized: check if /usr/libexec/java_home exists and cache the result
+if [[ -x /usr/libexec/java_home ]]; then
+  () {
+    local version="17.0.6"
+    local cache_file="${XDG_CACHE_HOME:-$HOME/.cache}/java_home_$version"
+    local java_home
+
+    if [[ -f "$cache_file" ]]; then
+      java_home=$(<"$cache_file")
+    fi
+
+    if [[ -z "$java_home" ]]; then
+      java_home=$(/usr/libexec/java_home -v "$version" 2>/dev/null)
+      if [[ -n "$java_home" ]]; then
+        mkdir -p "$(dirname "$cache_file")"
+        echo "$java_home" > "$cache_file"
+      fi
+    fi
+
+    if [[ -n "$java_home" ]]; then
+      export JAVA_HOME="$java_home"
+    fi
+  }
+fi
 
 # zoxide setup
 eval "$(zoxide init zsh)"
