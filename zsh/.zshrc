@@ -1,3 +1,8 @@
+# Activate Powerlevel10k Instant Prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If not in tmux, start tmux.
 # if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
 #   exec tmux attach || exec tmux new-session
@@ -74,18 +79,16 @@ fi
 
 export PATH="$HOME/.config/emacs/bin:$PATH"
 
-# Activate Powerlevel10k Instant Prompt.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # brew completions
-if type brew &>/dev/null
-then
+# Optimized: check standard paths instead of slow $(brew --prefix)
+if [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
+  FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
+elif [[ -d /usr/local/share/zsh/site-functions ]]; then
+  FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
+elif [[ -d /home/linuxbrew/.linuxbrew/share/zsh/site-functions ]]; then
+  FPATH="/home/linuxbrew/.linuxbrew/share/zsh/site-functions:${FPATH}"
+elif type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
 fi
 
 # Enable the "new" completion system (compsys).
