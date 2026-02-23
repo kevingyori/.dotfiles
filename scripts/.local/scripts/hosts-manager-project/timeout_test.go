@@ -7,8 +7,8 @@ import (
 )
 
 // This is a demonstration of how the timeout scenario would work
-// Run this with: go run timeout_test.go
-func main() {
+// To run this: rename demo() to main() and run with `go run .` or `go build` in this directory.
+func demo() {
 	fmt.Println("=== Hosts Manager Sudo Timeout Demonstration ===")
 
 	// Create a temporary hosts file for testing

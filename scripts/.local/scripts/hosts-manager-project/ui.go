@@ -33,6 +33,7 @@ type UIModel struct {
 	statusMsg       string
 	errorMsg        string
 	quitMsg         string
+	dirty           bool
 }
 
 // NewUIModel creates a new UI model
@@ -63,7 +64,18 @@ func NewUIModel(hostsManager *HostsManager) *UIModel {
 		textInput:       ti,
 		searchInput:     si,
 		state:           StateMain,
+		dirty:           false,
 	}
+}
+
+// IsDirty returns true if there are unsaved changes
+func (m *UIModel) IsDirty() bool {
+	return m.dirty
+}
+
+// SetClean marks the state as clean (saved)
+func (m *UIModel) SetClean() {
+	m.dirty = false
 }
 
 // GetCurrentDomains returns the currently displayed domains (filtered or all)
@@ -128,6 +140,7 @@ func (m *UIModel) GetSelectedDomain() (Domain, bool) {
 func (m *UIModel) AddDomain(name string) {
 	m.domainList.Add(name)
 	m.FilterDomains()
+	m.dirty = true
 	m.statusMsg = fmt.Sprintf("Added '%s'. Press 's' to save.", name)
 }
 
@@ -140,6 +153,7 @@ func (m *UIModel) DeleteSelectedDomain() bool {
 
 	if m.domainList.Remove(domain.Name) {
 		m.FilterDomains()
+		m.dirty = true
 		m.statusMsg = fmt.Sprintf("Deleting '%s'...", domain.Name)
 		return true
 	}
@@ -165,6 +179,7 @@ func (m *UIModel) ToggleSelectedDomain() bool {
 		m.cursor = cursorPos
 		m.ClampCursor()
 
+		m.dirty = true
 		m.statusMsg = fmt.Sprintf("Toggled '%s'. Press 's' to save.", domain.Name)
 		return true
 	}
@@ -176,6 +191,7 @@ func (m *UIModel) SetDomains(domains []Domain) {
 	m.domainList.Set(domains)
 	m.filteredDomains = m.domainList.Get()
 	m.paginator.SetTotalPages(len(m.filteredDomains))
+	m.dirty = false
 	m.statusMsg = "Hosts file loaded."
 }
 
