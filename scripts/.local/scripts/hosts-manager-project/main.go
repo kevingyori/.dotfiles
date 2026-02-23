@@ -191,35 +191,7 @@ func (m Model) handleMainState(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) View() string {
-	var b strings.Builder
-	b.WriteString(titleStyle.Render("Hosts File Manager") + "\n\n")
-
-	switch m.ui.state {
-	case StateAdding:
-		return m.renderAddingView()
-	case StateDeleting:
-		return m.renderDeletingView()
-	default:
-		return m.renderMainView()
-	}
-}
-
-func (m Model) renderAddingView() string {
-	var b strings.Builder
-	b.WriteString("Enter new domain name:\n")
-	b.WriteString(m.ui.textInput.View() + "\n\n")
-	b.WriteString(helpStyle.Render("enter: confirm, esc: cancel"))
-	return b.String()
-}
-
-func (m Model) renderDeletingView() string {
-	domain, ok := m.ui.GetSelectedDomain()
-	if !ok {
-		return "No domain selected"
-	}
-
-	question := fmt.Sprintf("Are you sure you want to delete '%s'?", domain.Name)
-	return dialogBox.Render(question + "\n\n(y/n)")
+	return m.renderMainView()
 }
 
 func (m Model) renderMainView() string {
@@ -254,13 +226,27 @@ func (m Model) renderMainView() string {
 	}
 
 	b.WriteString("\n" + m.ui.paginator.View() + "\n")
-	b.WriteString(helpStyle.Render("j/k/↑/↓: navigate  h/l/←/→: pages") + "\n")
-	b.WriteString(helpStyle.Render("space: toggle  a: add  d: delete  s: save  /: search  q: quit") + "\n")
 
-	// Show search input when active
-	if m.ui.state == StateSearching {
+	// Show mode-specific UI or general help
+	switch m.ui.state {
+	case StateAdding:
+		b.WriteString(statusStyle.Render("Enter new domain name:") + "\n")
+		b.WriteString(m.ui.textInput.View() + "\n")
+		b.WriteString(helpStyle.Render("enter: confirm, esc: cancel") + "\n")
+	case StateDeleting:
+		domain, ok := m.ui.GetSelectedDomain()
+		if ok {
+			question := fmt.Sprintf("Are you sure you want to delete '%s'? (y/n)", domain.Name)
+			b.WriteString(errorStyle.Render(question) + "\n")
+		}
+	case StateSearching:
+		b.WriteString(helpStyle.Render("j/k/↑/↓: navigate  h/l/←/→: pages") + "\n")
+		b.WriteString(helpStyle.Render("space: toggle  a: add  d: delete  s: save  /: search  q: quit") + "\n")
 		b.WriteString("\n" + "Search: " + m.ui.searchInput.View() + "\n")
 		b.WriteString(helpStyle.Render("enter: keep filter, esc: clear filter"))
+	default: // StateMain
+		b.WriteString(helpStyle.Render("j/k/↑/↓: navigate  h/l/←/→: pages") + "\n")
+		b.WriteString(helpStyle.Render("space: toggle  a: add  d: delete  s: save  /: search  q: quit") + "\n")
 	}
 
 	if m.ui.statusMsg != "" {
