@@ -73,6 +73,11 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// GetAll returns a direct reference to all domains for read-only operations
+func (dl *DomainList) GetAll() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))

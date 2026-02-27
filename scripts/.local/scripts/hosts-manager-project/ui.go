@@ -83,7 +83,10 @@ func (m *UIModel) GetCurrentDomains() []Domain {
 	if m.searchInput.Value() != "" {
 		return m.filteredDomains
 	}
-	return m.domainList.Get()
+	// Optimization: use GetAll() instead of Get() to return a direct reference
+	// rather than a deep copy. This prevents an O(N) allocation per render tick
+	// and keystroke when no search query is active.
+	return m.domainList.GetAll()
 }
 
 // FilterDomains updates the filtered domains based on search input
