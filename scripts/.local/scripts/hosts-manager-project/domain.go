@@ -66,11 +66,12 @@ func (dl *DomainList) Toggle(name string) bool {
 	return false
 }
 
-// Get returns a copy of all domains
+// Get returns a reference to the domains slice.
+// We avoid copying here because this method is called frequently
+// during Bubble Tea's Update and View loops, which would cause
+// O(N) memory allocations per tick.
 func (dl *DomainList) Get() []Domain {
-	result := make([]Domain, len(dl.domains))
-	copy(result, dl.domains)
-	return result
+	return dl.domains
 }
 
 // Set replaces all domains with the provided list
