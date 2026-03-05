@@ -66,11 +66,9 @@ func (dl *DomainList) Toggle(name string) bool {
 	return false
 }
 
-// Get returns a copy of all domains
+// Get returns a direct reference to all domains to prevent O(N) allocation on every render tick
 func (dl *DomainList) Get() []Domain {
-	result := make([]Domain, len(dl.domains))
-	copy(result, dl.domains)
-	return result
+	return dl.domains
 }
 
 // Set replaces all domains with the provided list
