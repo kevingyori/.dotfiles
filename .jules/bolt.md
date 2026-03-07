@@ -1,3 +1,3 @@
-## 2025-02-24 - Zsh Startup Bottlenecks
-**Learning:** `$(brew --prefix)` is a major performance killer during shell startup because it spawns Ruby. On modern systems, Homebrew paths are predictable (`/opt/homebrew`, `/usr/local`, etc.).
-**Action:** Always prefer static directory checks over dynamic `brew --prefix` calls in shell configuration. Use `brew --prefix` only as a fallback.
+## 2025-03-07 - Avoid Deep Slice Copies in TUI Applications
+**Learning:** In Go Bubble Tea TUI applications (like hosts-manager), deep slice copies in frequent loops (e.g., View or Update rendering) can lead to O(N) memory allocations per render tick, causing unnecessary overhead.
+**Action:** Prefer returning direct slice references for read-only operations (e.g., `Items() []Domain`) instead of deep copying slices (e.g., `Get() []Domain`), unless mutation is expected, to prevent memory churn.
