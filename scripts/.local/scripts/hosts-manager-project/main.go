@@ -137,7 +137,8 @@ func (m Model) handleDeletingState(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "y", "Y":
 		if m.ui.DeleteSelectedDomain() {
 			m.ui.state = StateMain
-			return m, saveDomainsCmd(m.ui.hostsManager, m.ui.domainList.Get())
+			// Clone domains to avoid data races during async operations
+			return m, saveDomainsCmd(m.ui.hostsManager, m.ui.domainList.Clone())
 		}
 		m.ui.state = StateMain
 		return m, nil
@@ -186,7 +187,8 @@ func (m Model) handleMainState(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		}
 	case "s":
 		m.ui.SetStatus("Saving changes...")
-		return m, saveDomainsCmd(m.ui.hostsManager, m.ui.domainList.Get())
+		// Clone domains to avoid data races during async operations
+		return m, saveDomainsCmd(m.ui.hostsManager, m.ui.domainList.Clone())
 	}
 
 	return m, nil
