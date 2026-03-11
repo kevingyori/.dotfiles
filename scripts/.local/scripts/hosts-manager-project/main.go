@@ -208,6 +208,14 @@ func (m Model) renderMainView() string {
 	start, end := m.ui.paginator.GetSliceBounds(len(currentDomains))
 	paginatedDomains := currentDomains[start:end]
 
+	if len(currentDomains) == 0 {
+		if m.ui.state == StateSearching {
+			b.WriteString(helpStyle.Render("  No domains match your search. Press 'esc' to clear.") + "\n")
+		} else {
+			b.WriteString(helpStyle.Render("  No domains managed yet. Press 'a' to add one.") + "\n")
+		}
+	}
+
 	for i, d := range paginatedDomains {
 		cursor := " "
 		if m.ui.cursor == i {
