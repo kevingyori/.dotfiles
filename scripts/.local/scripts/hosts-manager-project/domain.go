@@ -73,6 +73,12 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// GetView returns a direct reference to the domains slice for read-only operations
+// to prevent O(N) memory allocations per render tick.
+func (dl *DomainList) GetView() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))
