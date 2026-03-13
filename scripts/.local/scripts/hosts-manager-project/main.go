@@ -208,6 +208,14 @@ func (m Model) renderMainView() string {
 	start, end := m.ui.paginator.GetSliceBounds(len(currentDomains))
 	paginatedDomains := currentDomains[start:end]
 
+	if len(currentDomains) == 0 {
+		if m.ui.searchInput.Value() != "" {
+			b.WriteString(helpStyle.Render(fmt.Sprintf("No domains found matching '%s'.", m.ui.searchInput.Value())) + "\n")
+		} else {
+			b.WriteString(helpStyle.Render("No domains managed yet. Press 'a' to add one.") + "\n")
+		}
+	}
+
 	for i, d := range paginatedDomains {
 		cursor := " "
 		if m.ui.cursor == i {
@@ -227,6 +235,9 @@ func (m Model) renderMainView() string {
 
 	// Fill remaining space
 	numRendered := len(paginatedDomains)
+	if len(currentDomains) == 0 {
+		numRendered = 1
+	}
 	for i := numRendered; i < m.ui.paginator.PerPage; i++ {
 		b.WriteString("\n")
 	}
