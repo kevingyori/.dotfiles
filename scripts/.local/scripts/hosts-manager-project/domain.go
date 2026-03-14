@@ -66,8 +66,14 @@ func (dl *DomainList) Toggle(name string) bool {
 	return false
 }
 
-// Get returns a copy of all domains
+// Get returns a direct reference to all domains (fast, zero allocation).
+// Warning: do not pass this result to asynchronous commands to avoid data races.
 func (dl *DomainList) Get() []Domain {
+	return dl.domains
+}
+
+// Clone returns a deep copy of all domains, safe for asynchronous operations (e.g., tea.Cmd).
+func (dl *DomainList) Clone() []Domain {
 	result := make([]Domain, len(dl.domains))
 	copy(result, dl.domains)
 	return result

@@ -9,7 +9,7 @@ func TestDomainList_Add(t *testing.T) {
 
 	// Test adding a new domain
 	dl.Add("example.com")
-	domains := dl.Get()
+	domains := dl.Clone()
 	if len(domains) != 1 {
 		t.Errorf("Expected 1 domain, got %d", len(domains))
 	}
@@ -22,21 +22,21 @@ func TestDomainList_Add(t *testing.T) {
 
 	// Test adding duplicate domain
 	dl.Add("example.com")
-	domains = dl.Get()
+	domains = dl.Clone()
 	if len(domains) != 1 {
 		t.Errorf("Expected 1 domain after adding duplicate, got %d", len(domains))
 	}
 
 	// Test domain normalization
 	dl.Add("  EXAMPLE.COM  ")
-	domains = dl.Get()
+	domains = dl.Clone()
 	if len(domains) != 1 {
 		t.Errorf("Expected 1 domain after adding normalized duplicate, got %d", len(domains))
 	}
 
 	// Test www prefix removal
 	dl.Add("www.test.com")
-	domains = dl.Get()
+	domains = dl.Clone()
 	if len(domains) != 2 {
 		t.Errorf("Expected 2 domains, got %d", len(domains))
 	}
@@ -63,7 +63,7 @@ func TestDomainList_Remove(t *testing.T) {
 	if !removed {
 		t.Error("Expected Remove to return true for existing domain")
 	}
-	domains := dl.Get()
+	domains := dl.Clone()
 	if len(domains) != 1 {
 		t.Errorf("Expected 1 domain after removal, got %d", len(domains))
 	}
@@ -76,7 +76,7 @@ func TestDomainList_Remove(t *testing.T) {
 	if removed {
 		t.Error("Expected Remove to return false for non-existing domain")
 	}
-	domains = dl.Get()
+	domains = dl.Clone()
 	if len(domains) != 1 {
 		t.Errorf("Expected 1 domain after failed removal, got %d", len(domains))
 	}
@@ -91,7 +91,7 @@ func TestDomainList_Toggle(t *testing.T) {
 	if !toggled {
 		t.Error("Expected Toggle to return true for existing domain")
 	}
-	domains := dl.Get()
+	domains := dl.Clone()
 	if !domains[0].Blocked {
 		t.Error("Expected domain to be blocked after toggle")
 	}
@@ -101,7 +101,7 @@ func TestDomainList_Toggle(t *testing.T) {
 	if !toggled {
 		t.Error("Expected Toggle to return true for existing domain")
 	}
-	domains = dl.Get()
+	domains = dl.Clone()
 	if domains[0].Blocked {
 		t.Error("Expected domain to be unblocked after second toggle")
 	}
@@ -166,7 +166,7 @@ func TestDomainList_Set(t *testing.T) {
 	}
 
 	dl.Set(domains)
-	result := dl.Get()
+	result := dl.Clone()
 
 	if len(result) != 2 {
 		t.Errorf("Expected 2 domains after Set, got %d", len(result))
