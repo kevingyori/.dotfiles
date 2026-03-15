@@ -73,6 +73,11 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// View returns a direct reference to all domains for read-only UI rendering
+func (dl *DomainList) View() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))
@@ -83,7 +88,7 @@ func (dl *DomainList) Set(domains []Domain) {
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.View()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
