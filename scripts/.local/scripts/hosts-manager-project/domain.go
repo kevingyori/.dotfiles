@@ -73,6 +73,12 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// Items returns a direct reference to the domains slice for read-only use
+// Use carefully as modifying the returned slice mutates the underlying data
+func (dl *DomainList) Items() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))
@@ -83,7 +89,7 @@ func (dl *DomainList) Set(domains []Domain) {
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.Items()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
