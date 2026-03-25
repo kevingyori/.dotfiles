@@ -73,6 +73,13 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// GetAll returns a direct reference to the domains slice.
+// WARNING: Do not modify the returned slice or pass it to async commands (tea.Cmd).
+// Use Get() instead if you need to mutate the slice or pass it asynchronously.
+func (dl *DomainList) GetAll() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))
@@ -83,7 +90,7 @@ func (dl *DomainList) Set(domains []Domain) {
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.GetAll()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
