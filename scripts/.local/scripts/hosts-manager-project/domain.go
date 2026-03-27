@@ -73,6 +73,13 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// GetRef returns a direct reference to the domains slice.
+// WARNING: Do not modify the returned slice or pass it to async Cmds!
+// Useful for high-frequency read-only operations (like UI rendering).
+func (dl *DomainList) GetRef() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))
@@ -83,7 +90,7 @@ func (dl *DomainList) Set(domains []Domain) {
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.GetRef()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
