@@ -83,7 +83,8 @@ func (m *UIModel) GetCurrentDomains() []Domain {
 	if m.searchInput.Value() != "" {
 		return m.filteredDomains
 	}
-	return m.domainList.Get()
+	// Use GetRef() to avoid O(N) allocation per render tick
+	return m.domainList.GetRef()
 }
 
 // FilterDomains updates the filtered domains based on search input
@@ -92,7 +93,7 @@ func (m *UIModel) FilterDomains() {
 	wasFiltered := len(m.filteredDomains) != m.domainList.Count() && len(m.filteredDomains) > 0
 
 	if searchQuery == "" {
-		m.filteredDomains = m.domainList.Get()
+		m.filteredDomains = m.domainList.GetRef()
 		if wasFiltered {
 			m.cursor = 0
 		}
@@ -189,7 +190,7 @@ func (m *UIModel) ToggleSelectedDomain() bool {
 // SetDomains sets the domain list
 func (m *UIModel) SetDomains(domains []Domain) {
 	m.domainList.Set(domains)
-	m.filteredDomains = m.domainList.Get()
+	m.filteredDomains = m.domainList.GetRef()
 	m.paginator.SetTotalPages(len(m.filteredDomains))
 	m.dirty = false
 	m.statusMsg = "Hosts file loaded."
@@ -200,7 +201,7 @@ func (m *UIModel) ClearSearch() {
 	hadSearchValue := m.searchInput.Value() != ""
 	m.searchInput.Reset()
 	m.searchInput.Blur()
-	m.filteredDomains = m.domainList.Get()
+	m.filteredDomains = m.domainList.GetRef()
 	m.paginator.SetTotalPages(m.domainList.Count())
 	if hadSearchValue {
 		m.cursor = 0
