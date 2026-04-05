@@ -80,10 +80,15 @@ func (dl *DomainList) Set(domains []Domain) {
 	dl.sort()
 }
 
+// Items returns a direct reference to the domains slice for zero-allocation reads
+func (dl *DomainList) Items() []Domain {
+	return dl.domains
+}
+
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.Items()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
