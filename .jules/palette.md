@@ -1,0 +1,3 @@
+## 2024-04-14 - Contextual Empty States in Paginated TUIs
+**Learning:** In Bubble Tea paginated TUIs, missing empty states should be replaced with helpful guidance and call-to-actions to improve usability. Crucially, when rendering empty state messages, adjusting the blank space filler loop to account for the rendered message lines (e.g., set `numRendered = 1`) is necessary to prevent layout jumping and preserve exact pagination height. Empty states should also be contextually differentiated (e.g., 'No domains managed yet' vs 'No domains match your search').
+**Action:** Always provide context-aware empty state guidance in TUIs and ensure custom UI messages integrate cleanly with existing layout padding calculations to maintain a stable viewport.
