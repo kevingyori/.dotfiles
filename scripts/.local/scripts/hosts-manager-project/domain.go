@@ -66,11 +66,17 @@ func (dl *DomainList) Toggle(name string) bool {
 	return false
 }
 
-// Get returns a copy of all domains
+// Get returns a copy of all domains (safe for async operations)
 func (dl *DomainList) Get() []Domain {
 	result := make([]Domain, len(dl.domains))
 	copy(result, dl.domains)
 	return result
+}
+
+// Items returns a direct reference to the domains slice for zero-allocation read-only access.
+// IMPORTANT: Do not modify the returned slice or pass it to async operations (tea.Cmd) to avoid data races.
+func (dl *DomainList) Items() []Domain {
+	return dl.domains
 }
 
 // Set replaces all domains with the provided list
@@ -83,7 +89,7 @@ func (dl *DomainList) Set(domains []Domain) {
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.Items()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
