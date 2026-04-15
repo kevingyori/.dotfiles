@@ -1,0 +1,3 @@
+## 2024-04-15 - Contextual Empty States in Bubble Tea TUI
+**Learning:** In TUI applications (like Bubble Tea), missing empty states leave users confused, especially when filtering vs when the list is entirely empty. Furthermore, inserting an empty state message can break pagination layout heights if the blank space filler loop isn't adjusted to account for the newly rendered text line.
+**Action:** Always provide contextually differentiated empty states ('No items' vs 'No search results') with clear calls-to-action, and adjust pagination filler loops (e.g., numRendered = 1) to prevent layout jumping.

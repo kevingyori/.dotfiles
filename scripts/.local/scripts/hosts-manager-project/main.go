@@ -225,8 +225,17 @@ func (m Model) renderMainView() string {
 		}
 	}
 
-	// Fill remaining space
 	numRendered := len(paginatedDomains)
+	if numRendered == 0 {
+		if m.ui.domainList.Count() == 0 {
+			b.WriteString(helpStyle.Render("  No domains managed yet. Press 'a' to add one.") + "\n")
+		} else {
+			b.WriteString(helpStyle.Render("  No domains match your search.") + "\n")
+		}
+		numRendered = 1
+	}
+
+	// Fill remaining space
 	for i := numRendered; i < m.ui.paginator.PerPage; i++ {
 		b.WriteString("\n")
 	}
