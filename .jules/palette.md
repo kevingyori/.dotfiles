@@ -1,0 +1,3 @@
+## 2024-04-19 - TUI Empty States and Pagination Heights
+**Learning:** In paginated Bubble Tea TUI views, when rendering an empty state message, the blank space filler loop must account for the rendered message lines to prevent layout jumping and preserve exact pagination height. Missing empty states should be replaced with helpful guidance and call-to-actions. Empty state messaging should be contextually differentiated to clarify whether the overall list is completely empty versus when a search filter simply yields no results.
+**Action:** Added context-aware empty state messages to the domain list view in the hosts-manager application, adjusting the blank space filler loop to preserve layout height.
