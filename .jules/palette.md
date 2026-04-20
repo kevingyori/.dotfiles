@@ -1,0 +1,3 @@
+## 2024-05-24 - Contextual Empty States in TUIs
+**Learning:** In TUI applications, empty states should be contextually differentiated. Explaining why a list is empty (e.g. general empty vs. search filter yielding no results) provides better guidance. When rendering an empty state message in a paginated Bubble Tea view, the blank space filler loop must account for the rendered message lines (e.g., set `numRendered = 1`) to prevent layout jumping and preserve exact pagination height.
+**Action:** Always implement contextual empty states in TUIs and adjust pagination filler loops when adding empty state messages.
