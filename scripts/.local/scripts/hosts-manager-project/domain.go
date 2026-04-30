@@ -66,6 +66,11 @@ func (dl *DomainList) Toggle(name string) bool {
 	return false
 }
 
+// Items returns a zero-allocation read-only reference to the domains slice
+func (dl *DomainList) Items() []Domain {
+	return dl.domains
+}
+
 // Get returns a copy of all domains
 func (dl *DomainList) Get() []Domain {
 	result := make([]Domain, len(dl.domains))
