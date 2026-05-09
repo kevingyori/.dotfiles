@@ -73,6 +73,12 @@ func (dl *DomainList) Get() []Domain {
 	return result
 }
 
+// Items returns a direct reference to the domains slice.
+// This is an allocation-free operation meant for read-only use in UI rendering loops.
+func (dl *DomainList) Items() []Domain {
+	return dl.domains
+}
+
 // Set replaces all domains with the provided list
 func (dl *DomainList) Set(domains []Domain) {
 	dl.domains = make([]Domain, len(domains))
