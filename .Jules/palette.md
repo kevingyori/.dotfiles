@@ -9,3 +9,7 @@
 ## 2026-02-22 - [Preserving Context in TUI]
 **Learning:** In TUI applications, replacing the entire screen for a simple input or confirmation destroys context. Users forget what they were acting on (e.g., "Was I deleting 'google.com' or 'google-analytics.com'?"). Keeping the list visible while showing the input/dialog at the bottom feels much more grounded and less disorienting.
 **Action:** Avoid full-screen mode switches for simple transient tasks in TUIs. Overlay or append UI elements instead.
+
+## 2026-03-22 - [Helpful Empty States]
+**Learning:** Missing empty states in TUI applications leave users confused about what to do next. Providing helpful guidance and call-to-actions improves usability. Additionally, empty state messaging should be contextually differentiated to clarify whether the overall list is completely empty or simply when a search filter yields no results. Finally, in paginated Bubble Tea TUI views, when rendering an empty state message, adjust the blank space filler loop to account for the rendered message lines to prevent layout jumping and preserve exact pagination height.
+**Action:** Always replace missing empty states with helpful guidance and contextually differentiated call-to-actions, and preserve exact pagination height by adjusting filler loops.
