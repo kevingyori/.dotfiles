@@ -66,6 +66,11 @@ func (dl *DomainList) Toggle(name string) bool {
 	return false
 }
 
+// Items returns a direct reference to the domains slice for zero-allocation read-only operations
+func (dl *DomainList) Items() []Domain {
+	return dl.domains
+}
+
 // Get returns a copy of all domains
 func (dl *DomainList) Get() []Domain {
 	result := make([]Domain, len(dl.domains))
@@ -83,7 +88,7 @@ func (dl *DomainList) Set(domains []Domain) {
 // Filter returns domains matching the search query
 func (dl *DomainList) Filter(query string) []Domain {
 	if query == "" {
-		return dl.Get()
+		return dl.Items()
 	}
 
 	query = strings.ToLower(strings.TrimSpace(query))
