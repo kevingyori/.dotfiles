@@ -9,3 +9,7 @@
 ## 2026-02-22 - [Preserving Context in TUI]
 **Learning:** In TUI applications, replacing the entire screen for a simple input or confirmation destroys context. Users forget what they were acting on (e.g., "Was I deleting 'google.com' or 'google-analytics.com'?"). Keeping the list visible while showing the input/dialog at the bottom feels much more grounded and less disorienting.
 **Action:** Avoid full-screen mode switches for simple transient tasks in TUIs. Overlay or append UI elements instead.
+
+## 2024-05-18 - Differentiated empty states in TUI lists
+**Learning:** Users can get confused when a TUI list is empty, wondering if the entire application has no data or if their current search filter is simply too restrictive. A generic "No items" message is insufficient.
+**Action:** Always contextually differentiate empty state messaging. Explicitly state when an empty list is due to a search filter versus an entirely empty dataset, and ensure blank space fillers are adjusted to preserve pagination height layout.
