@@ -9,3 +9,7 @@
 ## 2026-02-22 - [Preserving Context in TUI]
 **Learning:** In TUI applications, replacing the entire screen for a simple input or confirmation destroys context. Users forget what they were acting on (e.g., "Was I deleting 'google.com' or 'google-analytics.com'?"). Keeping the list visible while showing the input/dialog at the bottom feels much more grounded and less disorienting.
 **Action:** Avoid full-screen mode switches for simple transient tasks in TUIs. Overlay or append UI elements instead.
+
+## 2024-05-20 - Contextual Empty States in TUI Pagination
+**Learning:** In TUI paginated views, replacing empty space with contextual feedback (e.g., differentiating between "No search results" vs "List is empty") greatly improves user awareness.
+**Action:** Always provide differentiated empty state messages while ensuring the blank space filler loop accounts for the rendered message lines (e.g., `numRendered = 1`) to prevent layout jumping and preserve exact pagination height.
