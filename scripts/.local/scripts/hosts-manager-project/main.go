@@ -208,27 +208,41 @@ func (m Model) renderMainView() string {
 	start, end := m.ui.paginator.GetSliceBounds(len(currentDomains))
 	paginatedDomains := currentDomains[start:end]
 
-	for i, d := range paginatedDomains {
-		cursor := " "
-		if m.ui.cursor == i {
-			cursor = ">"
+	if len(paginatedDomains) == 0 {
+		emptyMsg := "No domains match your search."
+		if m.ui.searchInput.Value() == "" {
+			emptyMsg = "No domains managed yet. Press 'a' to add one."
 		}
-		checkbox := "[ ]"
-		if d.Blocked {
-			checkbox = selectedStyle.Render("[✔]")
-		}
-		row := fmt.Sprintf("%s %s %s", cursor, checkbox, d.Name)
-		if m.ui.cursor == i {
-			b.WriteString(cursorStyle.Render(row) + "\n")
-		} else {
-			b.WriteString(row + "\n")
-		}
-	}
+		b.WriteString("  " + helpStyle.Render(emptyMsg) + "\n")
 
-	// Fill remaining space
-	numRendered := len(paginatedDomains)
-	for i := numRendered; i < m.ui.paginator.PerPage; i++ {
-		b.WriteString("\n")
+		// Fill remaining space
+		numRendered := 1
+		for i := numRendered; i < m.ui.paginator.PerPage; i++ {
+			b.WriteString("\n")
+		}
+	} else {
+		for i, d := range paginatedDomains {
+			cursor := " "
+			if m.ui.cursor == i {
+				cursor = ">"
+			}
+			checkbox := "[ ]"
+			if d.Blocked {
+				checkbox = selectedStyle.Render("[\u2714]")
+			}
+			row := fmt.Sprintf("%s %s %s", cursor, checkbox, d.Name)
+			if m.ui.cursor == i {
+				b.WriteString(cursorStyle.Render(row) + "\n")
+			} else {
+				b.WriteString(row + "\n")
+			}
+		}
+
+		// Fill remaining space
+		numRendered := len(paginatedDomains)
+		for i := numRendered; i < m.ui.paginator.PerPage; i++ {
+			b.WriteString("\n")
+		}
 	}
 
 	b.WriteString("\n" + m.ui.paginator.View() + "\n")
