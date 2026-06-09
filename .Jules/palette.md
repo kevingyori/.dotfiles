@@ -9,3 +9,6 @@
 ## 2026-02-22 - [Preserving Context in TUI]
 **Learning:** In TUI applications, replacing the entire screen for a simple input or confirmation destroys context. Users forget what they were acting on (e.g., "Was I deleting 'google.com' or 'google-analytics.com'?"). Keeping the list visible while showing the input/dialog at the bottom feels much more grounded and less disorienting.
 **Action:** Avoid full-screen mode switches for simple transient tasks in TUIs. Overlay or append UI elements instead.
+## 2024-06-09 - Differentiated empty states in TUI applications
+**Learning:** In TUI applications with search capabilities, a single generic empty state is insufficient. Differentiating between "No items managed yet" and "No items match your search" prevents user confusion when applying filters. Additionally, rendering empty state messages requires adjusting the space-filler loop (`numRendered = 1`) to preserve stable pagination layout without jumping.
+**Action:** Always provide context-aware empty state messages that reflect the current view state (e.g., active filters vs. empty repository) and account for their line height in fixed-height paginated terminal views.
