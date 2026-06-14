@@ -9,3 +9,7 @@
 ## 2026-02-22 - [Preserving Context in TUI]
 **Learning:** In TUI applications, replacing the entire screen for a simple input or confirmation destroys context. Users forget what they were acting on (e.g., "Was I deleting 'google.com' or 'google-analytics.com'?"). Keeping the list visible while showing the input/dialog at the bottom feels much more grounded and less disorienting.
 **Action:** Avoid full-screen mode switches for simple transient tasks in TUIs. Overlay or append UI elements instead.
+
+## 2024-05-24 - [Contextual Empty States in TUI]
+**Learning:** In TUI applications, an empty state could mean "no data exists" or "no data matches the current filter". Differentiating the messaging ("No domains managed yet" vs "No domains match your search") provides necessary context and prevents users from assuming their data is gone when a filter is active. Furthermore, when rendering the empty state message, the blank space filler loop must account for the rendered message lines to prevent layout jumping and preserve exact pagination height.
+**Action:** Always provide contextually differentiated empty state messaging in list views and account for the rendered message lines in layout spacing calculations.
