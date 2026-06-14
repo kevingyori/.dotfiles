@@ -90,7 +90,7 @@ func (dl *DomainList) Filter(query string) []Domain {
 	var filtered []Domain
 
 	for _, d := range dl.domains {
-		if strings.Contains(strings.ToLower(d.Name), query) {
+		if strings.Contains(d.Name, query) {
 			filtered = append(filtered, d)
 		}
 	}
