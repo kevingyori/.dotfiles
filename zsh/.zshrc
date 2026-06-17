@@ -185,12 +185,34 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 }
 
 # zoxide setup
-eval "$(zoxide init zsh)"
+() {
+  if command -v zoxide >/dev/null; then
+    local bin_path="$(command -v zoxide)"
+    local cache_file="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide_init.zsh"
+    if [[ -f "$cache_file" && "$cache_file" -nt "$bin_path" ]]; then
+      source "$cache_file"
+    else
+      mkdir -p "${cache_file:h}"
+      zoxide init zsh >| "$cache_file"
+      source "$cache_file"
+    fi
+  fi
+}
 
 # rbenv
-if command -v rbenv >/dev/null; then
-  eval "$(rbenv init - zsh --no-rehash)"
-fi
+() {
+  if command -v rbenv >/dev/null; then
+    local bin_path="$(command -v rbenv)"
+    local cache_file="${XDG_CACHE_HOME:-$HOME/.cache}/rbenv_init.zsh"
+    if [[ -f "$cache_file" && "$cache_file" -nt "$bin_path" ]]; then
+      source "$cache_file"
+    else
+      mkdir -p "${cache_file:h}"
+      rbenv init - zsh --no-rehash >| "$cache_file"
+      source "$cache_file"
+    fi
+  fi
+}
 
 # Put the line below in ~/.zshrc:
 
