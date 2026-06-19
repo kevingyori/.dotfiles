@@ -89,8 +89,9 @@ func (dl *DomainList) Filter(query string) []Domain {
 	query = strings.ToLower(strings.TrimSpace(query))
 	var filtered []Domain
 
+	// d.Name is already normalized to lowercase in Add()
 	for _, d := range dl.domains {
-		if strings.Contains(strings.ToLower(d.Name), query) {
+		if strings.Contains(d.Name, query) {
 			filtered = append(filtered, d)
 		}
 	}
