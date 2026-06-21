@@ -89,8 +89,10 @@ func (dl *DomainList) Filter(query string) []Domain {
 	query = strings.ToLower(strings.TrimSpace(query))
 	var filtered []Domain
 
+	// Domain names are already normalized (lowercased) upon insertion,
+	// so we avoid redundant strings.ToLower calls in this hot loop.
 	for _, d := range dl.domains {
-		if strings.Contains(strings.ToLower(d.Name), query) {
+		if strings.Contains(d.Name, query) {
 			filtered = append(filtered, d)
 		}
 	}
