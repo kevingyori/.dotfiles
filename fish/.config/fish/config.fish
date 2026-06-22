@@ -64,7 +64,15 @@ if status is-interactive
     end
 end
 
-starship init fish | source
+if command -v starship >/dev/null
+    set -l starship_cache "$HOME/.cache/starship_init.fish"
+    set -l starship_bin (command -v starship)
+    if test ! -f "$starship_cache"; or test "$starship_bin" -nt "$starship_cache"
+        mkdir -p (dirname "$starship_cache")
+        starship init fish > "$starship_cache"
+    end
+    source "$starship_cache"
+end
 
 # # Base16 Shell
 # if status --is-interactive
