@@ -185,7 +185,15 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 }
 
 # zoxide setup
-eval "$(zoxide init zsh)"
+if command -v zoxide >/dev/null; then
+  zoxide_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zoxide_init.zsh"
+  zoxide_bin="$(command -v zoxide)"
+  if [[ ! -f "$zoxide_cache" || "$zoxide_bin" -nt "$zoxide_cache" ]]; then
+    mkdir -p "$(dirname "$zoxide_cache")"
+    zoxide init zsh >| "$zoxide_cache"
+  fi
+  source "$zoxide_cache"
+fi
 
 # rbenv
 if command -v rbenv >/dev/null; then
