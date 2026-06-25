@@ -227,6 +227,16 @@ func (m Model) renderMainView() string {
 
 	// Fill remaining space
 	numRendered := len(paginatedDomains)
+
+	if numRendered == 0 {
+		if m.ui.searchInput.Value() != "" {
+			b.WriteString(helpStyle.Render("No domains match your search.") + "\n")
+		} else {
+			b.WriteString(helpStyle.Render("No domains found. Press 'a' to add one.") + "\n")
+		}
+		numRendered = 1 // Account for the empty state message
+	}
+
 	for i := numRendered; i < m.ui.paginator.PerPage; i++ {
 		b.WriteString("\n")
 	}
